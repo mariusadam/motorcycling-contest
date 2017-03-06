@@ -1,0 +1,4 @@
+url=jdbc:mysql://localhost:3306/motorcycling_contest_database?autoReconnect=true&useSSL=false
+port=3306
+user=java_user
+pass=abcd1234
