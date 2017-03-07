@@ -15,7 +15,11 @@ public class UserMapper implements Mapper<Integer, User> {
     @Override
     public Map<String, String> toMap(User obj) {
         Map<String, String> map = new HashMap<>();
-        map.put("id", obj.getId().toString());
+
+        if (obj.getId() != null) {
+            map.put("id", obj.getId().toString());
+        }
+
         map.put("first_name", obj.getFirstName());
         map.put("last_name", obj.getLastName());
         map.put("email", obj.getEmail());
@@ -23,7 +27,9 @@ public class UserMapper implements Mapper<Integer, User> {
         map.put("salt", obj.getSalt());
         map.put("is_active", !obj.getIsActive() ? "0" : "1");
         map.put("logged_in", !obj.getLoggedIn() ? "0" : "1");
-        map.put("last_login", obj.getLastLogin().toString());
+        if (obj.getLastLogin() != null) {
+            map.put("last_login", obj.getLastLogin().toString());
+        }
 
         return map;
     }

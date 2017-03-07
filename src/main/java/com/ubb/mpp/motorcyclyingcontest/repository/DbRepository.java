@@ -26,16 +26,16 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
 
     @Override
     public void insert(T obj) throws RepositoryException {
-        Map<String, String> props = this.mapper.toMap(obj);
+        Map<String, String> props = mapper.toMap(obj);
         Set<String> keys = props.keySet();
         ArrayList<String> values = keys.stream().map(props::get).collect(Collectors.toCollection(ArrayList::new));
 
         String cols = String.join(", ", props.keySet());
         String vals = (new String(new char[props.size() - 1]).replace("\0", "?, ")) + "?";
-        String query = String.format("INSERT INTO `%s` (%s) VALUES (%s)", this.tableName, cols, vals);
+        String query = String.format("INSERT INTO `%s` (%s) VALUES (%s)", tableName, cols, vals);
 
         try {
-            PreparedStatement stmt = this.connection.prepareStatement(query);
+            PreparedStatement stmt = connection.prepareStatement(query);
             for(int i = 0; i < values.size(); i++) {
                 stmt.setString(i + 1, values.get(i));
             }
@@ -48,12 +48,12 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
 
     @Override
     public T delete(Id id) throws RepositoryException {
-        T obj = this.findById(id);
+        T obj = findById(id);
 
-        String query = String.format("DELETE FROM `%s` WHERE id=?", this.tableName);
+        String query = String.format("DELETE FROM `%s` WHERE id=?", tableName);
 
         try {
-            PreparedStatement stmt = this.connection.prepareStatement(query);
+            PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, id.toString());
             stmt.execute();
 
@@ -65,7 +65,7 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
 
     @Override
     public void update(T entity) throws RepositoryException {
-        Map<String, String> props = this.mapper.toMap(entity);
+        Map<String, String> props = mapper.toMap(entity);
         props.remove("id");
 
         ArrayList<String> set = new ArrayList<>();
@@ -77,10 +77,10 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
 
         String setStr = String.join(", ", set);
         String where = "id=?";
-        String query = String.format("UPDATE `%s` SET %s WHERE %s", this.tableName, setStr ,where);
+        String query = String.format("UPDATE `%s` SET %s WHERE %s", tableName, setStr ,where);
 
         try {
-            PreparedStatement stmt = this.connection.prepareStatement(query);
+            PreparedStatement stmt = connection.prepareStatement(query);
 
             int i = 0;
             while (i < binds.size()) {
@@ -97,10 +97,10 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
 
     @Override
     public T findById(Id id) throws RepositoryException {
-        String query = String.format("SELECT t.* FROM `%s` t WHERE t.id=?", this.tableName);
+        String query = String.format("SELECT t.* FROM `%s` t WHERE t.id=?", tableName);
 
         try {
-            PreparedStatement stmt = this.connection.prepareStatement(query);
+            PreparedStatement stmt = connection.prepareStatement(query);
             stmt.setString(1, id.toString());
             stmt.execute();
 
@@ -108,7 +108,7 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
             T obj = null;
 
             if (rs.next()) {
-                obj =  this.mapper.createObject(rs);
+                obj =  mapper.createObject(rs);
             }
             rs.close();
 
@@ -123,16 +123,16 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
 
     @Override
     public Collection<T> getAll() throws RepositoryException {
-        String query = String.format("SELECT t.* FROM `%s` t", this.tableName);
+        String query = String.format("SELECT t.* FROM `%s` t", tableName);
 
         try {
-            PreparedStatement stmt = this.connection.prepareStatement(query);
+            PreparedStatement stmt = connection.prepareStatement(query);
             stmt.execute();
 
             ResultSet rs = stmt.getResultSet();
             Collection<T> result = new ArrayList<>();
             while (rs.next()) {
-                result.add(this.mapper.createObject(rs));
+                result.add(mapper.createObject(rs));
             }
             rs.close();
 
@@ -151,10 +151,10 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
 
     @Override
     public int size() throws RepositoryException {
-        String query = String.format("SELECT COUNT(*) as size FROM `%s`", this.tableName);
+        String query = String.format("SELECT COUNT(*) as size FROM `%s`", tableName);
 
         try {
-            PreparedStatement stmt = this.connection.prepareStatement(query);
+            PreparedStatement stmt = connection.prepareStatement(query);
             stmt.execute();
 
             ResultSet rs = stmt.getResultSet();

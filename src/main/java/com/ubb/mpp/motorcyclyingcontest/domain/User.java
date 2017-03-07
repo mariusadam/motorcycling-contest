@@ -149,4 +149,16 @@ public class User extends Entity<Integer> {
 
         return this;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "User: [%d, %s, %s, %s, %s]",
+                getId(),
+                getEmail(),
+                getFirstName(),
+                getLastName(),
+                getLastLogin()
+        );
+    }
 }

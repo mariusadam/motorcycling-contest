@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile group: 'mysql', name: 'mysql-connector-java', version:'6.0.5'
+    runtime group: 'mysql', name: 'mysql-connector-java', version:'6.0.5'
     compile group: 'com.j256.ormlite', name: 'ormlite-core', version:'5.0'
     compile group: 'com.j256.ormlite', name: 'ormlite-jdbc', version:'5.0'
     compile group: 'javax.enterprise', name: 'cdi-api', version:'2.0-EDR2'

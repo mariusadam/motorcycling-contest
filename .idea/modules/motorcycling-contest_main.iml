@@ -9,7 +9,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: mysql:mysql-connector-java:6.0.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.j256.ormlite:ormlite-core:5.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: com.j256.ormlite:ormlite-jdbc:5.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: javax.enterprise:cdi-api:2.0-EDR2" level="project" />
@@ -18,6 +17,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jboss.weld.se:weld-se:3.0.0.Alpha1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: javax.el:javax.el-api:3.0.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: javax.interceptor:javax.interceptor-api:1.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: mysql:mysql-connector-java:6.0.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jboss.weld:weld-api:3.0.Alpha5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.jboss.weld:weld-spi:3.0.Alpha5" level="project" />
