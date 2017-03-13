@@ -1,7 +1,7 @@
 package com.ubb.mpp.motorcyclyingcontest.repository;
 
 /**
- * Created by marius on 07.03.2017.
+ * @author Marius Adam
  */
 public class RepositoryException extends Exception {
     public RepositoryException() {

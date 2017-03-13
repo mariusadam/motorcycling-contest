@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Created by marius on 11/20/16.
+ * @author Marius Adam
  */
 public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> {
     private Connection connection;

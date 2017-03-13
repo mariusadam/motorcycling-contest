@@ -5,7 +5,7 @@ import com.ubb.mpp.motorcyclyingcontest.domain.HasId;
 import java.util.*;
 
 /**
- *
+ * @author Marius Adam
  */
 public class InMemoryRepository<Id, T extends HasId<Id>> implements Repository<Id, T> {
     private Map<Id, T> items;

@@ -16,7 +16,7 @@ import java.util.concurrent.Executor;
 import java.util.function.Consumer;
 
 /**
- * Created by marius on 07.03.2017.
+ * @author Marius Adam
  */
 public class Main {
 

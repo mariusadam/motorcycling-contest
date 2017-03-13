@@ -4,7 +4,7 @@ import com.ubb.mpp.motorcyclyingcontest.domain.HasId;
 import java.util.Collection;
 
 /**
- *
+ * @author Marius Adam
  */
 public interface Repository<Id, T extends HasId<Id>> {
     /**
