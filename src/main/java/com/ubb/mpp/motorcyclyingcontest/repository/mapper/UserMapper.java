@@ -2,6 +2,7 @@ package com.ubb.mpp.motorcyclyingcontest.repository.mapper;
 
 import com.ubb.mpp.motorcyclyingcontest.domain.User;
 import com.ubb.mpp.motorcyclyingcontest.repository.RepositoryException;
+import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +12,7 @@ import java.util.Map;
 /**
  * @author Marius Adam
  */
+@Service
 public class UserMapper implements Mapper<User> {
     @Override
     public Map<String, String> toMap(User obj) {

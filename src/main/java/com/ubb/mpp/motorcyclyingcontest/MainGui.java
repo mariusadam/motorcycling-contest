@@ -23,7 +23,10 @@ public class MainGui extends Application {
     @Override
     public void init() throws Exception {
         super.init();
-        applicationContext = new AnnotationConfigApplicationContext(DIConfiguration.class);
+        String basePackage = getClass().getPackage().getName();
+        System.out.print(basePackage);
+        applicationContext = new AnnotationConfigApplicationContext(basePackage);
+        applicationContext.register(DIConfiguration.class);
     }
 
     @Override

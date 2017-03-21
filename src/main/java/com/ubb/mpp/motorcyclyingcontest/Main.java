@@ -2,16 +2,12 @@ package com.ubb.mpp.motorcyclyingcontest;
 
 import com.ubb.mpp.motorcyclyingcontest.config.DIConfiguration;
 import com.ubb.mpp.motorcyclyingcontest.domain.User;
-import com.ubb.mpp.motorcyclyingcontest.repository.DbRepository;
 import com.ubb.mpp.motorcyclyingcontest.repository.Repository;
-import com.ubb.mpp.motorcyclyingcontest.repository.mapper.UserMapper;
+import com.ubb.mpp.motorcyclyingcontest.repository.UserRepository;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.security.SecureRandom;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.Collection;
-import java.util.Properties;
 import java.util.Random;
 
 /**
@@ -20,20 +16,11 @@ import java.util.Random;
 public class Main {
 
     public static void main(String [] args) throws Exception {
-        Properties dbProperties = new Properties();
-        dbProperties.load(Main.class.getResourceAsStream("/config/database.properties"));
+        String basePackage = Main.class.getPackage().getName();
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(basePackage);
+        applicationContext.register(DIConfiguration.class);
 
-        Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(DIConfiguration.class);
-
-        UserMapper userMapper = new UserMapper();
-        Connection connection = DriverManager.getConnection(
-                dbProperties.getProperty("url"),
-                dbProperties.getProperty("user"),
-                dbProperties.getProperty("pass")
-        );
-        Repository<Integer, User> userRepository = new DbRepository<>(connection, userMapper, "users");
+        Repository<Integer, User> userRepository = applicationContext.getBean(UserRepository.class);
 
         Random random = new SecureRandom();
 

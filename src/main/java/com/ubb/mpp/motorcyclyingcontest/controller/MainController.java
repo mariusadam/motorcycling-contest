@@ -6,10 +6,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Marius Adam
  */
+@Component
 public class MainController {
     public Text loginMessage;
     public StackPane stackPane;

@@ -11,12 +11,12 @@ services:
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         ports:
-            - 3306:3306
+            - ${MYSQL_PORT}:3306
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         ports:
-            - 8080:80
+            - 8181:80
         depends_on:
             - mysql
         environment:

@@ -4,7 +4,7 @@ package com.ubb.mpp.motorcyclyingcontest.domain;
  *
  */
 public abstract class Entity<Id> implements HasId<Id> {
-    protected Id id;
+    private Id id;
 
     public Entity() {
     }

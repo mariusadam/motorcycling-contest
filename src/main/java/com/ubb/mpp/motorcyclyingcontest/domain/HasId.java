@@ -1,7 +1,7 @@
 package com.ubb.mpp.motorcyclyingcontest.domain;
 
 /**
- *
+ * @author Marius Adam
  */
 public interface HasId<Id> {
     /**
