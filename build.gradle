@@ -3,6 +3,7 @@ plugins {
 }
 
 apply plugin: 'java'
+apply plugin: 'idea'
 
 group 'com.ubb.mpp'
 version '1.0-SNAPSHOT'
@@ -17,20 +18,16 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     runtime group: 'mysql', name: 'mysql-connector-java', version:'6.0.5'
-    compile group: 'com.j256.ormlite', name: 'ormlite-core', version:'5.0'
-    compile group: 'com.j256.ormlite', name: 'ormlite-jdbc', version:'5.0'
-    compile group: 'javax.enterprise', name: 'cdi-api', version:'2.0-EDR2'
-    compile group: 'javax.validation', name: 'validation-api', version:'1.0.0.GA'
-    compile group: 'org.jboss.weld', name: 'weld-core', version:'3.0.0.Alpha6'
-    compile group: 'org.jboss.weld.se', name: 'weld-se', version:'3.0.0.Alpha1'
+    compile 'org.springframework:spring-context:4.3.7.RELEASE'
 }
 
-//jar {
-//    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-//    manifest {
-//        attributes(
-//                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-//                'Main-Class': 'com.ubb.mpp.motorcyclyingcontest.Main'
-//        )
-//    }
-//}
+
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'com.ubb.mpp.motorcyclyingcontest.MainGui'
+        )
+    }
+}

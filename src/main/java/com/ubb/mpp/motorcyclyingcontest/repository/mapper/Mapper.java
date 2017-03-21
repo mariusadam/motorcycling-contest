@@ -6,10 +6,9 @@ import java.sql.ResultSet;
 import java.util.Map;
 
 /**
- * Created by marius on 07.03.2017.
+ * @author Marius Adam
  */
-public interface Mapper<Id, T> {
-    public Map<String, String> toMap(T obj);
-
-    public T createObject(ResultSet rs) throws RepositoryException;
+public interface Mapper<T> {
+    Map<String, String> toMap(T obj);
+    T createObject(ResultSet rs) throws RepositoryException;
 }

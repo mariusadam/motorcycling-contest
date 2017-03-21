@@ -1,19 +1,18 @@
 package com.ubb.mpp.motorcyclyingcontest;
 
-import com.j256.ormlite.support.ConnectionSource;
+import com.ubb.mpp.motorcyclyingcontest.config.DIConfiguration;
 import com.ubb.mpp.motorcyclyingcontest.domain.User;
 import com.ubb.mpp.motorcyclyingcontest.repository.DbRepository;
 import com.ubb.mpp.motorcyclyingcontest.repository.Repository;
 import com.ubb.mpp.motorcyclyingcontest.repository.mapper.UserMapper;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.security.SecureRandom;
-import java.sql.*;
-import java.util.*;
-import java.util.Date;
-import java.util.concurrent.Executor;
-import java.util.function.Consumer;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.Collection;
+import java.util.Properties;
+import java.util.Random;
 
 /**
  * @author Marius Adam
@@ -26,6 +25,8 @@ public class Main {
 
         Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(DIConfiguration.class);
+
         UserMapper userMapper = new UserMapper();
         Connection connection = DriverManager.getConnection(
                 dbProperties.getProperty("url"),
@@ -37,14 +38,13 @@ public class Main {
         Random random = new SecureRandom();
 
         User u = new User();
-        u
-                .setFirstName("fname")
-                .setLastName("lname")
-                .setEmail(random.nextInt() + "aw@asdasdas.com")
-                .setPassword("this should be some hash")
-                .setSalt("a very random salt")
-                .setIsActive(true)
-                .setLoggedIn(false);
+        u.setFirstName("fname");
+        u.setLastName("lname");
+        u.setEmail(random.nextInt() + "aw@asdasdas.com");
+        u.setPassword("this should be some hash");
+        u.setSalt("a very random salt");
+        u.setIsActive(true);
+        u.setLoggedIn(false);
 
         userRepository.insert(u);
 

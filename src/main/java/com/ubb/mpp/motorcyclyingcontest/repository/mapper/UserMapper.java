@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by marius on 07.03.2017.
+ * @author Marius Adam
  */
-public class UserMapper implements Mapper<Integer, User> {
+public class UserMapper implements Mapper<User> {
     @Override
     public Map<String, String> toMap(User obj) {
         Map<String, String> map = new HashMap<>();
@@ -39,16 +39,15 @@ public class UserMapper implements Mapper<Integer, User> {
         User u = new User();
         try {
             u.setId(rs.getInt("id"));
-            u
-                    .setFirstName(rs.getString("first_name"))
-                    .setLastName(rs.getString("last_name"))
-                    .setEmail(rs.getString("email"))
-                    .setPassword(rs.getString("password"))
-                    .setSalt(rs.getString("salt"))
-                    .setIsActive(rs.getBoolean("is_active"))
-                    .setLoggedIn(rs.getBoolean("logged_in"))
-                    .setLastLogin(rs.getDate("last_login"));
-
+            u.setFirstName(rs.getString("first_name"));
+            u.setLastName(rs.getString("last_name"));
+            u.setEmail(rs.getString("email"));
+            u.setPassword(rs.getString("password"));
+            u.setSalt(rs.getString("salt"));
+            u.setIsActive(rs.getBoolean("is_active"));
+            u.setLoggedIn(rs.getBoolean("logged_in"));
+            u.setLastLogin(rs.getDate("last_login"));
+            
             return u;
         } catch (SQLException e) {
             throw new RepositoryException(e);

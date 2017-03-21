@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
  */
 public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> {
     private Connection connection;
-    private Mapper<Id, T> mapper;
+    private Mapper<T> mapper;
     private String tableName;
 
-    public DbRepository(Connection connection, Mapper<Id, T> mapper, String tableName) {
+    public DbRepository(Connection connection, Mapper<T> mapper, String tableName) {
         this.connection = connection;
         this.mapper = mapper;
         this.tableName = tableName;
