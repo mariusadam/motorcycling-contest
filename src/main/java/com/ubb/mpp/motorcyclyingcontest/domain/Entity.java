@@ -31,6 +31,6 @@ public abstract class Entity<Id> implements HasId<Id> {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof Entity && this.id.equals(((Entity) obj).id);
+        return obj instanceof Entity && id != null && id.equals(((Entity) obj).id);
     }
 }

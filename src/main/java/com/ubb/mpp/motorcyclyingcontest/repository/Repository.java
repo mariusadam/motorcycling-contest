@@ -2,6 +2,7 @@ package com.ubb.mpp.motorcyclyingcontest.repository;
 
 import com.ubb.mpp.motorcyclyingcontest.domain.HasId;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * @author Marius Adam
@@ -38,6 +39,10 @@ public interface Repository<Id, T extends HasId<Id>> {
      * @throws java.util.NoSuchElementException If the searched entity is not found
      */
     T findById(Id id) throws RepositoryException;
+
+    Collection<T> findBy(Map<String, String> criteria) throws RepositoryException;
+    Collection<T> findBy(String property, Object value) throws RepositoryException;
+    T findOneBy(String property, Object value) throws RepositoryException;
 
     /**
      *

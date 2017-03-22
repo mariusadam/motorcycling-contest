@@ -97,25 +97,51 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
 
     @Override
     public T findById(Id id) throws RepositoryException {
-        String query = String.format("SELECT t.* FROM `%s` t WHERE t.id=?", tableName);
+        T obj = findBy("id", id).iterator().next();
+        if (obj == null || obj.getId() == null) {
+            throw new NoSuchElementException("Could not find the entity with id " + id);
+        }
+
+        return obj;
+    }
+
+    @Override
+    public Collection<T> findBy(String property, Object value) throws RepositoryException {
+        Map<String, String> filter = new HashMap<>();
+        filter.put(property, value.toString());
+        return findBy(filter);
+    }
+
+    @Override
+    public T findOneBy(String property, Object value) throws RepositoryException {
+        return findBy(property, value).iterator().next();
+    }
+
+    @Override
+    public Collection<T> findBy(Map<String, String> criteria) throws RepositoryException {
+        Set<String> keys = criteria.keySet();
+        ArrayList<String> values = keys.stream().map(criteria::get).collect(Collectors.toCollection(ArrayList::new));
+
+        ArrayList<String> placeHolders = new ArrayList<>();
+        keys.forEach(s -> placeHolders.add(s + "=?"));
+        String where = String.join(" AND ", placeHolders);
+        String query = String.format("SELECT t.* FROM `%s` t WHERE %s", tableName, where);
 
         try {
             PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, id.toString());
+            for(int i = 0; i < values.size(); i++) {
+                stmt.setString(i + 1, values.get(i));
+            }
             stmt.execute();
 
             ResultSet rs = stmt.getResultSet();
-            T obj = null;
-
-            if (rs.next()) {
-                obj =  mapper.createObject(rs);
+            Collection<T> result = new ArrayList<>();
+            while (rs.next()) {
+                result.add(mapper.createObject(rs));
             }
             rs.close();
 
-            if (obj == null || obj.getId() == null) {
-                throw new NoSuchElementException("Could not find the entity with id " + id);
-            }
-            return obj;
+            return result;
         } catch (SQLException e) {
             throw new RepositoryException(e);
         }

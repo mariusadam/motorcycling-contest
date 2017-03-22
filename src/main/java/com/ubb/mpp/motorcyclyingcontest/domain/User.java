@@ -1,46 +1,39 @@
 package com.ubb.mpp.motorcyclyingcontest.domain;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
  * @author Marius Adam
  */
-//@DatabaseTable(tableName = "users")
 public class User extends Entity<Integer> {
-//    @DatabaseField(columnName = "last_name")
-//    @NotNull
-//    @Size(max = 30)
+    @NotNull
+    @Size(max = 30)
     private String lastName;
 
-//    @DatabaseField(columnName = "first_name")
-//    @NotNull
-//    @Size(max = 30)
+    @NotNull
+    @Size(max = 30)
     private String firstName;
 
-//    @DatabaseField(columnName = "is_active")
-//    @NotNull
+    @NotNull
     private Boolean isActive;
 
-//    @DatabaseField(columnName = "logged_in")
-//    @NotNull
+    @NotNull
     private Boolean loggedIn;
 
-//    @DatabaseField(columnName = "last_login")
     private Date lastLogin;
 
-//    @DatabaseField
-//    @NotNull
-//    @Size(max = 255)
+    @NotNull
+    @Size(max = 255)
     private String email;
 
-//    @DatabaseField
-//    @NotNull
-//    @Size(max = 128)
+    @NotNull
+    @Size(max = 128)
     private String password;
 
-//    @DatabaseField
-//    @NotNull
-//    @Size(max = 32)
+    @NotNull
+    @Size(max = 32)
     private String salt;
 
     private String plainPassword;

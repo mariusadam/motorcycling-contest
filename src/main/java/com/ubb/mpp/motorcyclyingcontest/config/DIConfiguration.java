@@ -7,32 +7,32 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
-import java.io.IOException;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.Properties;
 
 /**
  * @author Marius Adam
  */
 @Configuration
 public class DIConfiguration {
-    private Properties dbProperties;
     private ApplicationContext applicationContext;
+    private ConfigurationService configurationService;
 
     @Autowired
-    public DIConfiguration(ApplicationContext applicationContext) {
+    public DIConfiguration(ApplicationContext applicationContext, ConfigurationService configurationService) {
         this.applicationContext = applicationContext;
+        this.configurationService = configurationService;
     }
 
     @Bean
     @Scope("prototype")
     public Connection getNewConnection() throws Exception {
-        setDbProperties();
         return DriverManager.getConnection(
-                dbProperties.getProperty("url"),
-                dbProperties.getProperty("user"),
-                dbProperties.getProperty("pass")
+                configurationService.getDatabaseUrl(),
+                configurationService.getDatabaseUser(),
+                configurationService.getDatabasePass()
         );
     }
 
@@ -44,12 +44,9 @@ public class DIConfiguration {
         return loader;
     }
 
-    private void setDbProperties() throws IOException {
-        if (dbProperties != null) {
-            return;
-        }
-
-        dbProperties = new Properties();
-        dbProperties.load(getClass().getResourceAsStream("/config/database.properties"));
+    @Bean
+    @Scope("singleton")
+    public Validator getJavaxValidator() {
+        return Validation.buildDefaultValidatorFactory().getValidator();
     }
 }

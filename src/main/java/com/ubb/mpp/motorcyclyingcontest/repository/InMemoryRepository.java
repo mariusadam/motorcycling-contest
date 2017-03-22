@@ -71,6 +71,21 @@ public class InMemoryRepository<Id, T extends HasId<Id>> implements Repository<I
     }
 
     @Override
+    public Collection<T> findBy(Map<String, String> criteria) throws RepositoryException {
+        return null;
+    }
+
+    @Override
+    public Collection<T> findBy(String property, Object value) throws RepositoryException {
+        return null;
+    }
+
+    @Override
+    public T findOneBy(String property, Object value) throws RepositoryException {
+        return null;
+    }
+
+    @Override
     public void addCollection(Collection<T> collection) throws RepositoryException {
         for (T obj : collection) {
             insert(obj);

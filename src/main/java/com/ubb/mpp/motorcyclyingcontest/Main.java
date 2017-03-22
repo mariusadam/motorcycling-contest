@@ -1,10 +1,11 @@
 package com.ubb.mpp.motorcyclyingcontest;
 
-import com.ubb.mpp.motorcyclyingcontest.config.DIConfiguration;
 import com.ubb.mpp.motorcyclyingcontest.domain.User;
 import com.ubb.mpp.motorcyclyingcontest.repository.Repository;
 import com.ubb.mpp.motorcyclyingcontest.repository.UserRepository;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.ubb.mpp.motorcyclyingcontest.service.validator.EntityValidator;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.security.SecureRandom;
 import java.util.Collection;
@@ -16,9 +17,7 @@ import java.util.Random;
 public class Main {
 
     public static void main(String [] args) throws Exception {
-        String basePackage = Main.class.getPackage().getName();
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(basePackage);
-        applicationContext.register(DIConfiguration.class);
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring-config.xml");
 
         Repository<Integer, User> userRepository = applicationContext.getBean(UserRepository.class);
 
@@ -34,9 +33,10 @@ public class Main {
         u.setLoggedIn(false);
 
         userRepository.insert(u);
-
+        User found = userRepository.findOneBy("email", u.getEmail());
         Collection<User> all = userRepository.getAll();
-
+        applicationContext.getBean(EntityValidator.class).validate(u);
+        applicationContext.getBean(EntityValidator.class).validate(found);
         userRepository.getAll().forEach(System.out::println);
     }
 }
