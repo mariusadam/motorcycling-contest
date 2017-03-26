@@ -2,45 +2,33 @@ package com.ubb.mpp.motorcyclyingcontest.repository;
 
 import com.ubb.mpp.motorcyclyingcontest.domain.HasId;
 import com.ubb.mpp.motorcyclyingcontest.repository.mapper.Mapper;
+import com.ubb.mpp.motorcyclyingcontest.service.adapter.Adapter;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author Marius Adam
  */
 public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> {
-    private Connection connection;
+    private Adapter adapter;
     private Mapper<T> mapper;
     private String tableName;
 
-    public DbRepository(Connection connection, Mapper<T> mapper, String tableName) {
-        this.connection = connection;
+    public DbRepository(Adapter adapter, Mapper<T> mapper, String tableName) {
+        this.adapter = adapter;
         this.mapper = mapper;
         this.tableName = tableName;
     }
 
     @Override
     public void insert(T obj) throws RepositoryException {
-        Map<String, String> props = mapper.toMap(obj);
-        Set<String> keys = props.keySet();
-        ArrayList<String> values = keys.stream().map(props::get).collect(Collectors.toCollection(ArrayList::new));
-
-        String cols = String.join(", ", props.keySet());
-        String vals = (new String(new char[props.size() - 1]).replace("\0", "?, ")) + "?";
-        String query = String.format("INSERT INTO `%s` (%s) VALUES (%s)", tableName, cols, vals);
-
         try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            for(int i = 0; i < values.size(); i++) {
-                stmt.setString(i + 1, values.get(i));
-            }
-
-            stmt.execute();
+            adapter
+                    .getInsertStatement(tableName, mapper.toMap(obj))
+                    .execute();
         } catch (SQLException e) {
             throw new RepositoryException(e);
         }
@@ -50,13 +38,8 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
     public T delete(Id id) throws RepositoryException {
         T obj = findById(id);
 
-        String query = String.format("DELETE FROM `%s` WHERE id=?", tableName);
-
         try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.setString(1, id.toString());
-            stmt.execute();
-
+            adapter.getDeleteStatement(tableName, id);
             return obj;
         } catch (SQLException e) {
             throw new RepositoryException(e);
@@ -66,30 +49,8 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
     @Override
     public void update(T entity) throws RepositoryException {
         Map<String, String> props = mapper.toMap(entity);
-        props.remove("id");
-
-        ArrayList<String> set = new ArrayList<>();
-        ArrayList<String> binds = new ArrayList<>();
-        for(Map.Entry<String, String> entry : props.entrySet()) {
-            binds.add(entry.getValue());
-            set.add(entry.getKey() + "=?");
-        }
-
-        String setStr = String.join(", ", set);
-        String where = "id=?";
-        String query = String.format("UPDATE `%s` SET %s WHERE %s", tableName, setStr ,where);
-
         try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-
-            int i = 0;
-            while (i < binds.size()) {
-                stmt.setString(i + 1, binds.get(i));
-                i++;
-            }
-            stmt.setString(i + 1, entity.getId().toString());
-
-            stmt.execute();
+            adapter.getUpdateStatement(tableName, props);
         } catch (SQLException e) {
             throw new RepositoryException(e);
         }
@@ -119,21 +80,10 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
 
     @Override
     public Collection<T> findBy(Map<String, String> criteria) throws RepositoryException {
-        Set<String> keys = criteria.keySet();
-        ArrayList<String> values = keys.stream().map(criteria::get).collect(Collectors.toCollection(ArrayList::new));
-
-        ArrayList<String> placeHolders = new ArrayList<>();
-        keys.forEach(s -> placeHolders.add(s + "=?"));
-        String where = String.join(" AND ", placeHolders);
-        String query = String.format("SELECT t.* FROM `%s` t WHERE %s", tableName, where);
-
         try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            for(int i = 0; i < values.size(); i++) {
-                stmt.setString(i + 1, values.get(i));
-            }
+            PreparedStatement stmt = adapter
+                    .getSelectStatement(tableName, criteria);
             stmt.execute();
-
             ResultSet rs = stmt.getResultSet();
             Collection<T> result = new ArrayList<>();
             while (rs.next()) {
@@ -149,23 +99,7 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
 
     @Override
     public Collection<T> getAll() throws RepositoryException {
-        String query = String.format("SELECT t.* FROM `%s` t", tableName);
-
-        try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.execute();
-
-            ResultSet rs = stmt.getResultSet();
-            Collection<T> result = new ArrayList<>();
-            while (rs.next()) {
-                result.add(mapper.createObject(rs));
-            }
-            rs.close();
-
-            return result;
-        } catch (SQLException e) {
-            throw new RepositoryException(e);
-        }
+        return findBy(null);
     }
 
     @Override
@@ -177,22 +111,7 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
 
     @Override
     public int size() throws RepositoryException {
-        String query = String.format("SELECT COUNT(*) as size FROM `%s`", tableName);
-
-        try {
-            PreparedStatement stmt = connection.prepareStatement(query);
-            stmt.execute();
-
-            ResultSet rs = stmt.getResultSet();
-            int size = 0;
-            while (rs.next()) {
-                size = rs.getInt("size");
-            }
-            rs.close();
-
-            return size;
-        } catch (SQLException e) {
-            throw new RepositoryException(e);
-        }
+        //obviously this will be changed
+        return getAll().size();
     }
 }
