@@ -1,3 +1,5 @@
-url=jdbc:mysql://localhost:6666/motorcycling_contest_database?autoReconnect=true&useSSL=false
-user=java_user
-pass=abcd1234
+database.url=jdbc:mysql://localhost:6666/motorcycling_contest_database
+database.user=java_user
+database.pass=abcd1234
+
+tables.users=users
