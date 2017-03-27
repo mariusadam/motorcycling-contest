@@ -22,6 +22,8 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-core', version: '4.3.7.RELEASE'
     compile group: 'javax.validation', name: 'validation-api', version: '1.0.0.GA'
     compile group: 'org.hibernate', name: 'hibernate-validator', version: '4.3.1.Final'
+    compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.12'
+
 }
 
 
@@ -30,7 +32,7 @@ jar {
     manifest {
         attributes(
                 'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-                'Main-Class': 'com.ubb.mpp.motorcyclyingcontest.MainGui'
+                'Main-Class': 'com.ubb.mpp.motorcyclingcontest.MainGui'
         )
     }
 }
