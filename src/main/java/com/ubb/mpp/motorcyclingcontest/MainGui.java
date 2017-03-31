@@ -41,8 +41,8 @@ public class MainGui extends Application {
 
         stage.setTitle("Motorcycling Contest");
         stage.setScene(new Scene(root));
-        stage.setMinWidth(600);
-        stage.setMinHeight(400);
+        stage.setWidth(600);
+        stage.setHeight(400);
         stage.show();
     }
 }

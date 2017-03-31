@@ -56,9 +56,8 @@ public class LoginController extends BaseController{
             Parent root = loader.load(getClass().getResourceAsStream("/view/MainView.fxml"));
             ((MainController) loader.getController()).setCurrentUser(u);
             ((MainController) loader.getController()).setMainStage(mainStage);
-            mainStage.setScene(new Scene(root));
-            mainStage.setWidth(800);
-            mainStage.setHeight(600);
+            mainStage.setScene(new Scene(root, 800, 600));
+            mainStage.sizeToScene();
         } catch (RepositoryException e) {
             actionTarget.setText(e.getMessage());
         }

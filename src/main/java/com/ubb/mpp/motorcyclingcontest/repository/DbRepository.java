@@ -13,9 +13,9 @@ import java.util.*;
  * @author Marius Adam
  */
 public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> {
-    private Adapter adapter;
-    private Mapper<T> mapper;
-    private String tableName;
+    protected Adapter adapter;
+    protected Mapper<T> mapper;
+    protected String tableName;
 
     public DbRepository(Adapter adapter, Mapper<T> mapper, String tableName) {
         this.adapter = adapter;
@@ -58,7 +58,7 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
 
     @Override
     public T findById(Id id) throws RepositoryException {
-        T obj = findBy("id", id).iterator().next();
+        T obj = findOneBy("id", id);
         if (obj == null || obj.getId() == null) {
             throw new NoSuchElementException("Could not find the entity with id " + id);
         }
@@ -67,7 +67,7 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
     }
 
     @Override
-    public Collection<T> findBy(String property, Object value) throws RepositoryException {
+    public List<T> findBy(String property, Object value) throws RepositoryException {
         Map<String, String> filter = new HashMap<>();
         filter.put(property, value.toString());
         return findBy(filter);
@@ -88,13 +88,13 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
     }
 
     @Override
-    public Collection<T> findBy(Map<String, String> criteria) throws RepositoryException {
+    public List<T> findBy(Map<String, String> criteria) throws RepositoryException {
         try {
             PreparedStatement stmt = adapter
                     .getSelectStatement(tableName, criteria);
             stmt.execute();
             ResultSet rs = stmt.getResultSet();
-            Collection<T> result = new ArrayList<>();
+            List<T> result = new ArrayList<>();
             while (rs.next()) {
                 result.add(mapper.createObject(rs));
             }
@@ -107,7 +107,7 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
     }
 
     @Override
-    public Collection<T> getAll() throws RepositoryException {
+    public List<T> getAll() throws RepositoryException {
         return findBy(null);
     }
 
@@ -122,5 +122,30 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
     public int size() throws RepositoryException {
         //obviously this will be changed
         return getAll().size();
+    }
+
+    public Collection<String> suggest(String column, Object value) {
+        try {
+            String query = String.format(
+                    "SELECT r.%s from %s r WHERE r.%s like ? limit 10",
+                    column,
+                    tableName,
+                    column
+            );
+            PreparedStatement stmt = adapter.getConnection().prepareStatement(query);
+            stmt.setString(1, "%" + value + "%");
+
+            stmt.execute();
+            ResultSet rs = stmt.getResultSet();
+            List<String> result = new ArrayList<>();
+            while (rs.next()) {
+                result.add(rs.getString(column));
+            }
+            rs.close();
+
+            return result;
+        } catch (SQLException e) {
+            throw new RepositoryException(e);
+        }
     }
 }

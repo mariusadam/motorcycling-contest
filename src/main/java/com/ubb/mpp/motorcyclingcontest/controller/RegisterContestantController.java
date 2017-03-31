@@ -1,8 +1,8 @@
 package com.ubb.mpp.motorcyclingcontest.controller;
 
 import javafx.fxml.Initializable;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import javafx.scene.control.Pagination;
+import javafx.scene.control.TextField;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -13,6 +13,9 @@ import java.util.ResourceBundle;
  */
 @Component
 public class RegisterContestantController implements Initializable {
+    public TextField teamNameField;
+    public Pagination pagination;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 

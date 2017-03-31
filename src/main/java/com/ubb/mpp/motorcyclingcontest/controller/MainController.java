@@ -28,6 +28,7 @@ public class MainController extends BaseController implements Initializable {
     private User currentUser;
     private int searchTabsCount = 0;
     private int registerTabsCount = 0;
+    private int listRacesTabsCount = 0;
 
     @Autowired
     public MainController(ApplicationContext applicationContext) {
@@ -38,6 +39,11 @@ public class MainController extends BaseController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
         tabPane.getTabs().clear();
+        try {
+            onListRacesMenuItem(null);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void onLogoutMenuItem(ActionEvent event) throws IOException {
@@ -51,6 +57,13 @@ public class MainController extends BaseController implements Initializable {
 
     public void onCloseMenuItem(ActionEvent event) {
         Platform.exit();
+    }
+
+    public void onListRacesMenuItem(ActionEvent event) throws IOException {
+        Parent root = getFXMLLoader()
+                .load(getClass().getResourceAsStream("/view/Races.fxml"));
+        Tab tab = new Tab("List Races " + ++listRacesTabsCount, root);
+        tabPane.getTabs().add(tab);
     }
 
     public void onSearchMenuItem(ActionEvent event) throws IOException {

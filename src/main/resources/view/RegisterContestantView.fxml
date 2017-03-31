@@ -1,12 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.*?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8"
-            fx:controller="com.ubb.mpp.motorcyclingcontest.controller.RegisterContestantController"
->
-    <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0"/>
-    </content>
-</ScrollPane>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ubb.mpp.motorcyclingcontest.controller.SearchController">
+   <children>
+      <HBox alignment="CENTER" minHeight="215.0" prefHeight="215.0" prefWidth="600.0" spacing="15.0">
+         <children>
+            <Pagination fx:id="pagination" pageCount="20" />
+         </children>
+      </HBox>
+      <VBox alignment="CENTER" prefHeight="178.0" prefWidth="600.0">
+         <children>
+            <HBox prefHeight="399.0" prefWidth="600.0">
+               <children>
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <GridPane prefHeight="104.0" prefWidth="378.0">
+                     <children>
+                        <Label text="Team name" />
+                        <TextField fx:id="nameField" GridPane.columnIndex="1" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="94.0" minHeight="3.0" prefHeight="53.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox prefHeight="0.0" prefWidth="600.0">
+               <children>
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#onFilterRacesButton" prefHeight="31.0" prefWidth="73.0" text="Filter races" />
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>

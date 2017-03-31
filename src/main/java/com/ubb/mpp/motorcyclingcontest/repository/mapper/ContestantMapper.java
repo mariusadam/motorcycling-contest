@@ -1,7 +1,6 @@
 package com.ubb.mpp.motorcyclingcontest.repository.mapper;
 
 import com.ubb.mpp.motorcyclingcontest.domain.Contestant;
-import com.ubb.mpp.motorcyclingcontest.domain.EngineCapacity;
 import com.ubb.mpp.motorcyclingcontest.domain.Team;
 import com.ubb.mpp.motorcyclingcontest.repository.Repository;
 import com.ubb.mpp.motorcyclingcontest.repository.RepositoryException;
@@ -32,8 +31,7 @@ public class ContestantMapper implements Mapper<Contestant> {
         if (obj.getId() != null) {
             map.put("id", obj.getId().toString());
         }
-        map.put("name", obj.getNume());
-        map.put("engine_capacity", obj.getEngineCapacity().getCapacity().toString());
+        map.put("name", obj.getName());
         map.put("team_id", obj.getTeam().getId().toString());
 
         return map;
@@ -44,13 +42,7 @@ public class ContestantMapper implements Mapper<Contestant> {
         Contestant c = new Contestant();
         try {
             c.setId(rs.getInt("id"));
-            c.setNume(rs.getString("name"));
-            c.setEngineCapacity(
-                    new EngineCapacity(
-                            rs.getInt("engine_capacity"),
-                            EngineCapacity.UM.MC
-                    )
-            );
+            c.setName(rs.getString("name"));
             c.setTeam(teamRepository.findById(rs.getInt("team_id")));
 
             return c;

@@ -3,20 +3,15 @@ package com.ubb.mpp.motorcyclingcontest.domain;
 /**
  * @author Marius Adam
  */
-public class EngineCapacity {
+public class EngineCapacity extends Entity<Integer> {
     private UM unitOfMeasurement;
-    private Integer capacity;
+    private Double capacity;
 
-    public EngineCapacity(Integer capacity, UM um) {
-        this.capacity = capacity;
-        this.unitOfMeasurement = um;
-    }
-
-    public Integer getCapacity() {
+    public Double getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(Double capacity) {
         this.capacity = capacity;
     }
 
@@ -28,18 +23,26 @@ public class EngineCapacity {
         this.unitOfMeasurement = unitOfMeasurement;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof EngineCapacity)) {
-            return false;
+    public void toCc() {
+        switch (unitOfMeasurement) {
+            case MC:
+                capacity = capacity * 1000;
+                break;
+            case CC:
+                break;
         }
 
-        EngineCapacity other = (EngineCapacity) obj;
-        return other.unitOfMeasurement == unitOfMeasurement && other.capacity == capacity;
+        unitOfMeasurement = UM.CC;
+    }
+
+    @Override
+    public String toString() {
+        return capacity.toString() + unitOfMeasurement.toString();
     }
 
     public enum UM {
-        MC("mc");
+        MC("mc"),
+        CC("cc");
 
         private String name;
 
@@ -49,6 +52,18 @@ public class EngineCapacity {
 
         public String getName() {
             return name;
+        }
+
+
+        public static UM fromName(String name) {
+            switch (name) {
+                case "mc":
+                    return MC;
+                case "cc":
+                    return CC;
+                default:
+                    return null;
+            }
         }
 
         @Override

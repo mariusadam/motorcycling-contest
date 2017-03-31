@@ -71,12 +71,12 @@ public class InMemoryRepository<Id, T extends HasId<Id>> implements Repository<I
     }
 
     @Override
-    public Collection<T> findBy(Map<String, String> criteria) throws RepositoryException {
+    public List<T> findBy(Map<String, String> criteria) throws RepositoryException {
         return null;
     }
 
     @Override
-    public Collection<T> findBy(String property, Object value) throws RepositoryException {
+    public List<T> findBy(String property, Object value) throws RepositoryException {
         return null;
     }
 
@@ -102,7 +102,7 @@ public class InMemoryRepository<Id, T extends HasId<Id>> implements Repository<I
      * @return {@link Collection} The object containing all the entities
      */
     @Override
-    public Collection<T> getAll() {
-        return items.values();
+    public List<T> getAll() {
+        return null;
     }
 }

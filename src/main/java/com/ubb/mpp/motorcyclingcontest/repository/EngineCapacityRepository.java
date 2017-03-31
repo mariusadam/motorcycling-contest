@@ -1,26 +1,19 @@
 package com.ubb.mpp.motorcyclingcontest.repository;
 
-import com.ubb.mpp.motorcyclingcontest.domain.Team;
+import com.ubb.mpp.motorcyclingcontest.domain.EngineCapacity;
 import com.ubb.mpp.motorcyclingcontest.repository.mapper.Mapper;
 import com.ubb.mpp.motorcyclingcontest.service.adapter.Adapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.util.Collection;
-
 /**
  * @author Marius Adam
  */
 @org.springframework.stereotype.Repository
-public class TeamRepository extends DbRepository<Integer, Team> {
+public class EngineCapacityRepository extends DbRepository<Integer, EngineCapacity> {
     @Autowired
-    public TeamRepository(Adapter adapter, Mapper<Team> mapper,
-                          @Value("${table.teams}")
-                          String tableName) {
+    public EngineCapacityRepository(Adapter adapter, Mapper<EngineCapacity> mapper,
+                                    @Value("${table.engine_capacity}") String tableName) {
         super(adapter, mapper, tableName);
-    }
-
-    public Collection<String> suggestNames(String userText) {
-        return suggest("name", userText);
     }
 }

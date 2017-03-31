@@ -3,7 +3,7 @@ package com.ubb.mpp.motorcyclingcontest.repository;
 /**
  * @author Marius Adam
  */
-public class RepositoryException extends Exception {
+public class RepositoryException extends RuntimeException {
     public RepositoryException() {
         super();
     }

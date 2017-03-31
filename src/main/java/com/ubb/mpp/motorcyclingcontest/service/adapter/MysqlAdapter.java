@@ -101,4 +101,9 @@ public class MysqlAdapter implements Adapter {
 
         return stmt;
     }
+
+    @Override
+    public Connection getConnection() {
+        return connection;
+    }
 }

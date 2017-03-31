@@ -2,6 +2,7 @@ package com.ubb.mpp.motorcyclingcontest.repository;
 
 import com.ubb.mpp.motorcyclingcontest.domain.HasId;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,15 +41,15 @@ public interface Repository<Id, T extends HasId<Id>> {
      */
     T findById(Id id) throws RepositoryException;
 
-    Collection<T> findBy(Map<String, String> criteria) throws RepositoryException;
-    Collection<T> findBy(String property, Object value) throws RepositoryException;
+    List<T> findBy(Map<String, String> criteria) throws RepositoryException;
+    List<T> findBy(String property, Object value) throws RepositoryException;
     T findOneBy(String property, Object value) throws RepositoryException;
 
     /**
      *
      * @return {@link Collection} The object containing all the entities
      */
-    Collection<T> getAll() throws RepositoryException;
+    List<T> getAll() throws RepositoryException;
 
     /**
      *

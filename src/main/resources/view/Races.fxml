@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import org.controlsfx.control.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ubb.mpp.motorcyclingcontest.controller.RacesController">
+   <children>
+       <HBox alignment="CENTER" minHeight="215.0" prefHeight="215.0" prefWidth="600.0" spacing="15.0">
+           <children>
+               <Pagination fx:id="pagination" pageCount="20" />
+           </children>
+       </HBox>
+      <VBox alignment="CENTER" prefHeight="178.0" prefWidth="600.0">
+         <children>
+            <HBox prefHeight="399.0" prefWidth="600.0">
+               <children>
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <GridPane prefHeight="104.0" prefWidth="378.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="83.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="94.0" minHeight="3.0" prefHeight="53.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="Engine capacity" />
+                        <Label text="Name contains" GridPane.rowIndex="1" />
+                        <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <CheckListView fx:id="capacityCheckList" GridPane.columnIndex="1" />
+                     </children>
+                  </GridPane>
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox prefHeight="0.0" prefWidth="600.0">
+               <children>
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#onFilterRacesButton" prefHeight="31.0" prefWidth="73.0" text="Filter races" />
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</VBox>
