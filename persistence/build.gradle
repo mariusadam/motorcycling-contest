@@ -1,0 +1,18 @@
+group 'com.ubb.mpp'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile group: 'mysql', name: 'mysql-connector-java', version:'6.0.5'
+    compile 'org.springframework:spring-context:4.3.7.RELEASE'
+    compile group: 'org.springframework', name: 'spring-core', version: '4.3.7.RELEASE'
+    compile project (':model')
+}

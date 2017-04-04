@@ -1,7 +1,7 @@
 package com.ubb.mpp.motorcyclingcontest.controller;
 
-import com.ubb.mpp.motorcyclingcontest.domain.Contestant;
-import com.ubb.mpp.motorcyclingcontest.domain.Team;
+import com.ubb.mpp.model.Contestant;
+import com.ubb.mpp.model.Team;
 import com.ubb.mpp.motorcyclingcontest.repository.ContestantRepository;
 import com.ubb.mpp.motorcyclingcontest.repository.TeamRepository;
 import javafx.collections.FXCollections;

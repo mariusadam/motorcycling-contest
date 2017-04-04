@@ -1,9 +1,9 @@
 package com.ubb.mpp.motorcyclingcontest;
 
-import com.ubb.mpp.motorcyclingcontest.domain.User;
+import com.ubb.mpp.model.User;
 import com.ubb.mpp.motorcyclingcontest.repository.Repository;
 import com.ubb.mpp.motorcyclingcontest.repository.UserRepository;
-import com.ubb.mpp.motorcyclingcontest.service.validator.EntityValidator;
+import com.ubb.mpp.services.validator.EntityValidator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

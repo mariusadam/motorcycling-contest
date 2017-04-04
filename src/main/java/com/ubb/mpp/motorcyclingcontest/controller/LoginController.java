@@ -1,8 +1,8 @@
 package com.ubb.mpp.motorcyclingcontest.controller;
 
-import com.ubb.mpp.motorcyclingcontest.domain.User;
+import com.ubb.mpp.model.User;
 import com.ubb.mpp.motorcyclingcontest.repository.RepositoryException;
-import com.ubb.mpp.motorcyclingcontest.service.crud.UserService;
+import com.ubb.mpp.services.crud.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
