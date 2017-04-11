@@ -1,5 +1,7 @@
 package com.ubb.mpp.server;
 
+import javafx.fxml.FXMLLoader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
@@ -18,6 +20,13 @@ import org.springframework.xml.xsd.XsdSchema;
 @Configuration
 @ImportResource("classpath:services-config.xml")
 public class WebServiceConfig extends WsConfigurerAdapter {
+    private ApplicationContext applicationContext;
+
+    @Autowired
+    public WebServiceConfig(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+
     @Bean
     public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
@@ -39,5 +48,13 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean
     public XsdSchema countriesSchema() {
         return new SimpleXsdSchema(new ClassPathResource("moto-contest.xsd"));
+    }
+
+    @Bean
+    @Scope("prototype")
+    public FXMLLoader getFXMLoader() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setControllerFactory(applicationContext::getBean);
+        return loader;
     }
 }

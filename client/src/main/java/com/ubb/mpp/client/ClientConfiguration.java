@@ -1,14 +1,25 @@
 package com.ubb.mpp.client;
 
+import javafx.fxml.FXMLLoader;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 /**
  * @author Marius Adam
  */
 @Configuration
-public class MotoContestConfiguration {
+public class ClientConfiguration {
+
+    private ApplicationContext applicationContext;
+
+    @Autowired
+    public ClientConfiguration(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 
     @Bean
     public Jaxb2Marshaller marshaller() {
@@ -28,4 +39,17 @@ public class MotoContestConfiguration {
         return client;
     }
 
+    @Bean
+    @Scope("prototype")
+    public FXMLLoader getFXMLoader() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setControllerFactory(applicationContext::getBean);
+        return loader;
+    }
+
+//    @Bean
+//    @Scope("singleton")
+//    public Validator getJavaxValidator() {
+//        return Validation.buildDefaultValidatorFactory().getValidator();
+//    }
 }

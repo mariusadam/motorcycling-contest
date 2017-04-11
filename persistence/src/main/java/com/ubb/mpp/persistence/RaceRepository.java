@@ -64,7 +64,7 @@ public class RaceRepository extends DbRepository<Integer, Race> {
         }
     }
 
-    public Collection<String> suggestNames(String userText) {
+    public List<String> suggestNames(String userText) {
         return suggest("name", userText);
     }
 }

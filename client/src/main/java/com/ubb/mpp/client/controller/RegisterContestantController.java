@@ -1,4 +1,4 @@
-package com.ubb.mpp.motorcyclingcontest.controller;
+package com.ubb.mpp.client.controller;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.Pagination;

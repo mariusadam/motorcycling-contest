@@ -19,7 +19,7 @@ public class Application {
     @Bean
     CommandLineRunner lookup(MotoContestClient motoContestClient) {
         return args -> {
-            LoginResponse response = motoContestClient.login("a@b.com", "abcd1234");
+            LoginResponse response = motoContestClient.loginResponse("a@b.com", "abcd1234");
             System.err.println(response.getMessage());
         };
     }

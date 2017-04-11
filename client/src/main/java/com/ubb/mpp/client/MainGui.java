@@ -1,13 +1,13 @@
-package com.ubb.mpp.motorcyclingcontest;
+package com.ubb.mpp.client;
 
-import com.ubb.mpp.motorcyclingcontest.controller.LoginController;
+import com.ubb.mpp.client.controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 
@@ -21,7 +21,7 @@ public class MainGui extends Application {
     @Override
     public void init() throws Exception {
         super.init();
-        applicationContext = new ClassPathXmlApplicationContext("spring-config.xml");
+        applicationContext = new AnnotationConfigApplicationContext("com.ubb.mpp.client");
     }
 
     @Override

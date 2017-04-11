@@ -1,9 +1,8 @@
-package com.ubb.mpp.motorcyclingcontest.controller;
+package com.ubb.mpp.client.controller;
 
-import com.ubb.mpp.model.EngineCapacity;
-import com.ubb.mpp.model.Race;
-import com.ubb.mpp.motorcyclingcontest.repository.EngineCapacityRepository;
-import com.ubb.mpp.motorcyclingcontest.repository.RaceRepository;
+import com.ubb.mpp.client.MotoContestClient;
+import motocontest.wsdl.EngineCapacity;
+import motocontest.wsdl.Race;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,20 +33,19 @@ public class RacesController implements Initializable {
     public TextField nameField;
     public Pagination pagination;
 
-    private EngineCapacityRepository engineCapacityRepository;
-    private RaceRepository raceRepository;
+    private MotoContestClient client;
     private TableView<Race> mainTableView;
     private ObservableList<Race> entityObservableList;
 
     @Autowired
-    public RacesController(EngineCapacityRepository engineCapacityRepository, RaceRepository raceRepository) {
-        this.engineCapacityRepository = engineCapacityRepository;
-        this.raceRepository = raceRepository;
+    public RacesController(MotoContestClient client) {
+        this.client = client;
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<EngineCapacity> all = engineCapacityRepository.getAll();
+        List<EngineCapacity> all = client.getAllCapacitiesResponse().getEngineCapacities();
         ObservableList<EngineCapacity> enginesList = FXCollections.observableList(
                 all
         );
@@ -73,13 +71,16 @@ public class RacesController implements Initializable {
         mainTableView.getColumns().addAll(idColumn, nameColumn, startTimeColumn, engineCapacity);
 
         entityObservableList = FXCollections.observableArrayList();
-        entityObservableList.addAll(raceRepository.getAll());
+        entityObservableList.addAll(
+                client.getAllRacesResponse().getRaces()
+        );
         mainTableView.setItems(entityObservableList);
 
         pagination.setPageFactory(this::createPage);
 
         TextFields.bindAutoCompletion(
-                nameField, param -> raceRepository.suggestNames(param.getUserText())
+                nameField, param -> client
+                        .suggestRaceNamesResponse(nameColumn.getText()).getSuggestions()
         );
     }
 
@@ -90,10 +91,10 @@ public class RacesController implements Initializable {
     public void onFilterRacesButton(ActionEvent event) {
         entityObservableList.clear();
         entityObservableList.addAll(
-                raceRepository.findByNameAndCapacities(
+                client.findRacesByNameAndCapacitiesResponse(
                         nameField.getText(),
                         capacityCheckList.getCheckModel().getCheckedItems()
-                )
+                ).getRaces()
         );
     }
 }

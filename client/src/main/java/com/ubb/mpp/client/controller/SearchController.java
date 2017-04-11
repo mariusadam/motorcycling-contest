@@ -1,9 +1,7 @@
-package com.ubb.mpp.motorcyclingcontest.controller;
+package com.ubb.mpp.client.controller;
 
-import com.ubb.mpp.model.Contestant;
-import com.ubb.mpp.model.Team;
-import com.ubb.mpp.motorcyclingcontest.repository.ContestantRepository;
-import com.ubb.mpp.motorcyclingcontest.repository.TeamRepository;
+import com.ubb.mpp.client.MotoContestClient;
+import motocontest.wsdl.Team;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import motocontest.wsdl.Contestant;
 import org.controlsfx.control.textfield.TextFields;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,13 +32,11 @@ public class SearchController implements Initializable {
     private TableView<Contestant> mainTableView;
     private ObservableList<Contestant> entityObservableList;
 
-    private TeamRepository teamRepository;
-    private ContestantRepository contestantRepository;
+    private MotoContestClient client;
 
     @Autowired
-    public SearchController(TeamRepository teamRepository, ContestantRepository contestantRepository) {
-        this.teamRepository = teamRepository;
-        this.contestantRepository = contestantRepository;
+    public SearchController(MotoContestClient client) {
+        this.client = client;
     }
 
     @Override
@@ -60,13 +57,14 @@ public class SearchController implements Initializable {
         mainTableView.getColumns().addAll(idColumn, nameColumn, teamColumn);
 
         entityObservableList = FXCollections.observableArrayList();
-        entityObservableList.addAll(contestantRepository.getAll());
+        entityObservableList.addAll(client.getContestantsResponse().getContestants());
         mainTableView.setItems(entityObservableList);
 
         pagination.setPageFactory(this::createPage);
 
         TextFields.bindAutoCompletion(
-                teamNameField, param -> teamRepository.suggestNames(param.getUserText())
+                teamNameField,
+                param -> client.suggestTeamNamesResponse(param.getUserText()).getSuggestions()
         );
     }
 
@@ -77,7 +75,7 @@ public class SearchController implements Initializable {
     public void onSearchButton(ActionEvent event) {
         entityObservableList.clear();
         entityObservableList.addAll(
-                contestantRepository.findByTeamName(teamNameField.getText())
+                client.findByTeamNameResponse(teamNameField.getText()).getContestants()
         );
     }
 }

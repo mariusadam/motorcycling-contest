@@ -1,6 +1,6 @@
-package com.ubb.mpp.motorcyclingcontest.controller;
+package com.ubb.mpp.client.controller;
 
-import com.ubb.mpp.model.User;
+import motocontest.wsdl.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

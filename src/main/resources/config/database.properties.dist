@@ -1,9 +1,0 @@
-database.url=jdbc:mysql://localhost:6666/motorcycling_contest_database
-database.user=java_user
-database.pass=abcd1234
-
-table.users=users
-table.teams=team
-table.races=race
-table.engine_capacity=engine_capacity
-table.contestant=contestant

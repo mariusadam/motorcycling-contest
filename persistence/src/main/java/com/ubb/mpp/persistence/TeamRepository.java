@@ -1,12 +1,12 @@
 package com.ubb.mpp.persistence;
 
 import com.ubb.mpp.model.Team;
-import com.ubb.mpp.persistence.mapper.Mapper;
 import com.ubb.mpp.persistence.adapter.Adapter;
+import com.ubb.mpp.persistence.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Marius Adam
@@ -20,7 +20,7 @@ public class TeamRepository extends DbRepository<Integer, Team> {
         super(adapter, mapper, tableName);
     }
 
-    public Collection<String> suggestNames(String userText) {
+    public List<String> suggestNames(String userText) {
         return suggest("name", userText);
     }
 }

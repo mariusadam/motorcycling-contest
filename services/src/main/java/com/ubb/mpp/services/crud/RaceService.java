@@ -1,7 +1,38 @@
 package com.ubb.mpp.services.crud;
 
+import com.ubb.mpp.model.EngineCapacity;
+import com.ubb.mpp.model.Race;
+import com.ubb.mpp.persistence.RaceRepository;
+import com.ubb.mpp.persistence.Repository;
+import com.ubb.mpp.services.validator.ValidatorInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
 /**
  * @author Marius Adam
  */
-public class RaceService {
+@Component
+public class RaceService extends BaseCrudService<Integer, Race>{
+    private RaceRepository raceRepository;
+
+    @Autowired
+    public RaceService(ValidatorInterface validator, RaceRepository raceRepository) {
+        super(validator);
+        this.raceRepository = raceRepository;
+    }
+
+    public List<String> suggestNames(String text) {
+        return raceRepository.suggestNames(text);
+    }
+
+    public List<Race> findByNameAndCapacities(String raceName, List<EngineCapacity> capacities) {
+        return raceRepository.findByNameAndCapacities(raceName, capacities);
+    }
+
+    @Override
+    protected Repository<Integer, Race> getRepository() {
+        return raceRepository;
+    }
 }

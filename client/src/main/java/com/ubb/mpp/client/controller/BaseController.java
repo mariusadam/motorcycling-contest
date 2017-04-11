@@ -1,4 +1,4 @@
-package com.ubb.mpp.motorcyclingcontest.controller;
+package com.ubb.mpp.client.controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
