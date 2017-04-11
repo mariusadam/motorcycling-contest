@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module external.linked.project.id=":client:main" external.linked.project.path="$MODULE_DIR$/../../../client" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="com.ubb.mpp" external.system.module.type="sourceSet" external.system.module.version="1.0-SNAPSHOT" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/../../../client/build/classes/main" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../client/src/main">
@@ -9,5 +14,35 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../../client/build/classes/jaxb" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter:1.5.2.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.ws:spring-ws-core:2.4.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot:1.5.2.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-autoconfigure:1.5.2.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-logging:1.5.2.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-core:4.3.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.yaml:snakeyaml:1.17" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.ws:spring-xml:2.4.0.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-aop:4.3.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-beans:4.3.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-oxm:4.3.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-web:4.3.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-webmvc:4.3.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-context:4.3.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.1.11" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.24" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:jul-to-slf4j:1.7.24" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:log4j-over-slf4j:1.7.24" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework:spring-expression:4.3.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.1.11" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.24" level="project" />
   </component>
 </module>

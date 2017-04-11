@@ -1,3 +1,8 @@
+plugins {
+    id "org.flywaydb.flyway" version "4.1.1"
+}
+
+
 group 'com.ubb.mpp'
 version '1.0-SNAPSHOT'
 

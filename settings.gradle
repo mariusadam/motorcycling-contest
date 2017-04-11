@@ -2,7 +2,7 @@ rootProject.name = 'motorcycling-contest'
 include 'model'
 include 'server'
 include 'client'
-include 'networking'
 include 'services'
 include 'persistence'
+include 'server'
 

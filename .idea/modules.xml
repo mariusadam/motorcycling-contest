@@ -11,13 +11,10 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/motorcycling-contest.iml" filepath="$PROJECT_DIR$/.idea/modules/motorcycling-contest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/motorcycling-contest_main.iml" filepath="$PROJECT_DIR$/.idea/modules/motorcycling-contest_main.iml" group="motorcycling-contest" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/motorcycling-contest_test.iml" filepath="$PROJECT_DIR$/.idea/modules/motorcycling-contest_test.iml" group="motorcycling-contest" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/networking/networking.iml" filepath="$PROJECT_DIR$/.idea/modules/networking/networking.iml" group="networking" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/networking/networking_main.iml" filepath="$PROJECT_DIR$/.idea/modules/networking/networking_main.iml" group="networking" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/networking/networking_test.iml" filepath="$PROJECT_DIR$/.idea/modules/networking/networking_test.iml" group="networking" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/persistence/persistence.iml" filepath="$PROJECT_DIR$/.idea/modules/persistence/persistence.iml" group="persistence" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/persistence/persistence_main.iml" filepath="$PROJECT_DIR$/.idea/modules/persistence/persistence_main.iml" group="persistence" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/persistence/persistence_test.iml" filepath="$PROJECT_DIR$/.idea/modules/persistence/persistence_test.iml" group="persistence" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server.iml" group="server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server.iml" filepath="$PROJECT_DIR$/.idea/modules/server.iml" group="server" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server_main.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server_main.iml" group="server" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server_test.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server_test.iml" group="server" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/services/services.iml" filepath="$PROJECT_DIR$/.idea/modules/services/services.iml" group="services" />

@@ -1,4 +1,0 @@
-flyway.user=java_user
-flyway.password=abcd1234
-
-flyway.url=jdbc:mysql://localhost:6666/motorcycling_contest_database
