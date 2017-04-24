@@ -1,4 +1,4 @@
-package com.ubb.mpp.services.validator;
+package com.ubb.mpp.server.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

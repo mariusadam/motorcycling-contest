@@ -1,9 +1,9 @@
-package com.ubb.mpp.services.crud;
+package com.ubb.mpp.server.crud;
 
 import com.ubb.mpp.model.Team;
 import com.ubb.mpp.persistence.Repository;
 import com.ubb.mpp.persistence.TeamRepository;
-import com.ubb.mpp.services.validator.ValidatorInterface;
+import com.ubb.mpp.server.validator.ValidatorInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

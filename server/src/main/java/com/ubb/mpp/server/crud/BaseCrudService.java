@@ -1,9 +1,9 @@
-package com.ubb.mpp.services.crud;
+package com.ubb.mpp.server.crud;
 
 import com.ubb.mpp.model.HasId;
 import com.ubb.mpp.persistence.Repository;
 import com.ubb.mpp.persistence.RepositoryException;
-import com.ubb.mpp.services.validator.ValidatorInterface;
+import com.ubb.mpp.server.validator.ValidatorInterface;
 
 import java.sql.SQLException;
 import java.util.Collection;

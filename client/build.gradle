@@ -1,79 +1,19 @@
-configurations {
-    jaxb
-}
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
-    }
-}
-
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
 
 repositories {
     mavenCentral()
 }
 
-// tag::wsdl[]
-task genJaxb {
-    ext.sourcesDir = "${buildDir}/generated-sources/jaxb"
-    ext.classesDir = "${buildDir}/classes/jaxb"
-    ext.schema = "http://localhost:8080/ws/moto-contest.wsdl"
-
-    outputs.dir classesDir
-
-    doLast() {
-        project.ant {
-            taskdef name: "xjc", classname: "com.sun.tools.xjc.XJCTask",
-                    classpath: configurations.jaxb.asPath
-            mkdir(dir: sourcesDir)
-            mkdir(dir: classesDir)
-
-            xjc(destdir: sourcesDir, schema: schema,
-                    package: "motocontest.wsdl") {
-                arg(value: "-wsdl")
-                produces(dir: sourcesDir, includes: "**/*.java")
-            }
-
-            javac(destdir: classesDir, source: 1.8, target: 1.8, debug: true,
-                    debugLevel: "lines,vars,source",
-                    classpath: configurations.jaxb.asPath) {
-                src(path: sourcesDir)
-                include(name: "**/*.java")
-                include(name: "*.java")
-            }
-
-            copy(todir: classesDir) {
-                fileset(dir: sourcesDir, erroronmissingdir: false) {
-                    exclude(name: "**/*.java")
-                }
-            }
-        }
-    }
-}
-// end::wsdl[]
-
 group 'com.ubb.mpp'
 version '1.0-SNAPSHOT'
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter")
-    compile("org.springframework.ws:spring-ws-core")
-    compile(files(genJaxb.classesDir).builtBy(genJaxb))
+    compile 'org.springframework:spring-context:4.3.7.RELEASE'
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.12'
-    compile group: 'org.hibernate', name: 'hibernate-validator-annotation-processor', version: '4.1.0.Final'
-    jaxb "com.sun.xml.bind:jaxb-xjc:2.1.7"
-
     compile project (':model')
-}
-
-jar {
-    from genJaxb.classesDir
+    compile project (':services')
 }

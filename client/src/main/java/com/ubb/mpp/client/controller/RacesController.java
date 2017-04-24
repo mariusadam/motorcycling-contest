@@ -1,8 +1,8 @@
 package com.ubb.mpp.client.controller;
 
-import com.ubb.mpp.client.MotoContestClient;
-import motocontest.wsdl.EngineCapacity;
-import motocontest.wsdl.Race;
+import com.ubb.mpp.client.ProxyClient;
+import com.ubb.mpp.model.EngineCapacity;
+import com.ubb.mpp.model.Race;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,19 +33,19 @@ public class RacesController implements Initializable {
     public TextField nameField;
     public Pagination pagination;
 
-    private MotoContestClient client;
+    private ProxyClient client;
     private TableView<Race> mainTableView;
     private ObservableList<Race> entityObservableList;
 
     @Autowired
-    public RacesController(MotoContestClient client) {
+    public RacesController(ProxyClient client) {
         this.client = client;
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<EngineCapacity> all = client.getAllCapacitiesResponse().getEngineCapacities();
+        List<EngineCapacity> all = client.getEngineCapacities();
         ObservableList<EngineCapacity> enginesList = FXCollections.observableList(
                 all
         );
@@ -72,7 +72,7 @@ public class RacesController implements Initializable {
 
         entityObservableList = FXCollections.observableArrayList();
         entityObservableList.addAll(
-                client.getAllRacesResponse().getRaces()
+                client.getRaces()
         );
         mainTableView.setItems(entityObservableList);
 
@@ -80,7 +80,7 @@ public class RacesController implements Initializable {
 
         TextFields.bindAutoCompletion(
                 nameField, param -> client
-                        .suggestRaceNamesResponse(nameColumn.getText()).getSuggestions()
+                        .suggestRaceNames(nameColumn.getText())
         );
     }
 
@@ -91,10 +91,10 @@ public class RacesController implements Initializable {
     public void onFilterRacesButton(ActionEvent event) {
         entityObservableList.clear();
         entityObservableList.addAll(
-                client.findRacesByNameAndCapacitiesResponse(
+                client.findRaces(
                         nameField.getText(),
                         capacityCheckList.getCheckModel().getCheckedItems()
-                ).getRaces()
+                )
         );
     }
 }

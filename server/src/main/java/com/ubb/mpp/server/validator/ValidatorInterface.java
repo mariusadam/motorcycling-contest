@@ -1,4 +1,4 @@
-package com.ubb.mpp.services.validator;
+package com.ubb.mpp.server.validator;
 
 /**
  * @author Marius Adam

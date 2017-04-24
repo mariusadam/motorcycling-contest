@@ -1,10 +1,10 @@
-package com.ubb.mpp.services.crud;
+package com.ubb.mpp.server.crud;
 
 import com.ubb.mpp.model.User;
 import com.ubb.mpp.persistence.Repository;
 import com.ubb.mpp.persistence.RepositoryException;
 import com.ubb.mpp.persistence.UserRepository;
-import com.ubb.mpp.services.validator.EntityValidator;
+import com.ubb.mpp.server.validator.EntityValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

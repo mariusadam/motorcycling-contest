@@ -1,7 +1,8 @@
 package com.ubb.mpp.client.controller;
 
-import com.ubb.mpp.client.MotoContestClient;
-import motocontest.wsdl.Team;
+import com.ubb.mpp.client.ProxyClient;
+import com.ubb.mpp.model.Contestant;
+import com.ubb.mpp.model.Team;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +14,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import motocontest.wsdl.Contestant;
 import org.controlsfx.control.textfield.TextFields;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,10 +32,10 @@ public class SearchController implements Initializable {
     private TableView<Contestant> mainTableView;
     private ObservableList<Contestant> entityObservableList;
 
-    private MotoContestClient client;
+    private ProxyClient client;
 
     @Autowired
-    public SearchController(MotoContestClient client) {
+    public SearchController(ProxyClient client) {
         this.client = client;
     }
 
@@ -57,14 +57,14 @@ public class SearchController implements Initializable {
         mainTableView.getColumns().addAll(idColumn, nameColumn, teamColumn);
 
         entityObservableList = FXCollections.observableArrayList();
-        entityObservableList.addAll(client.getContestantsResponse().getContestants());
+        entityObservableList.addAll(client.getContestants());
         mainTableView.setItems(entityObservableList);
 
         pagination.setPageFactory(this::createPage);
 
         TextFields.bindAutoCompletion(
                 teamNameField,
-                param -> client.suggestTeamNamesResponse(param.getUserText()).getSuggestions()
+                param -> client.suggestTeamNames(param.getUserText())
         );
     }
 
@@ -75,7 +75,7 @@ public class SearchController implements Initializable {
     public void onSearchButton(ActionEvent event) {
         entityObservableList.clear();
         entityObservableList.addAll(
-                client.findByTeamNameResponse(teamNameField.getText()).getContestants()
+                client.findContestants(teamNameField.getText())
         );
     }
 }

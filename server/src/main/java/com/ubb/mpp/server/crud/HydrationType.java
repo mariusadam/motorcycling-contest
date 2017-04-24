@@ -1,4 +1,4 @@
-package com.ubb.mpp.services.crud;
+package com.ubb.mpp.server.crud;
 
 /**
  * @author Marius Adam
