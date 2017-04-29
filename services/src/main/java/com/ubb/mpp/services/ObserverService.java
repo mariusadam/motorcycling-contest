@@ -8,5 +8,5 @@ import java.rmi.RemoteException;
  */
 public interface ObserverService extends Remote {
     void contestantRegistered() throws RemoteException;
-    String getObserverId();
+    String getObserverId() throws RemoteException;
 }

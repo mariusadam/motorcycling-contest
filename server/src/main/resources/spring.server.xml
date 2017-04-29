@@ -15,7 +15,7 @@
         <property name="serviceName" value="MotoContest"/>
         <property name="service" ref="contestServerImpl"/>
         <property name="serviceInterface" value="com.ubb.mpp.services.ContestServer"/>
-        <property name="servicePort" value="1212"/>
+        <property name="servicePort" value="1099"/>
     </bean>
 
     <context:component-scan base-package="com.ubb.mpp.server"/>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
 import javax.validation.ValidationException;
 import javax.validation.Validator;
 import java.util.Set;
@@ -16,8 +17,8 @@ public class EntityValidator implements ValidatorInterface {
     private Validator javaxValidator;
 
     @Autowired
-    public EntityValidator(Validator validator) {
-        this.javaxValidator = validator;
+    public EntityValidator() {
+        this.javaxValidator = Validation.buildDefaultValidatorFactory().getValidator();
     }
 
     @Override

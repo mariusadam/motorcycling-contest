@@ -57,7 +57,7 @@ public class UserService extends BaseCrudService<Integer, User> {
         return new String(salt);
     }
 
-    public User getUserByEmailAndPassword(String email, String plainPassword) throws RepositoryException {
+    public User getUser(String email, String plainPassword) throws RepositoryException {
         User user = this.repository.findByEmail(email);
         if (user == null) {
             return null;

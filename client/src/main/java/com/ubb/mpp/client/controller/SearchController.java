@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  * @author Marius Adam
  */
 @Component
-public class SearchController implements Initializable {
+public class SearchController implements Initializable, Updatable {
     public Pagination pagination;
     public TextField teamNameField;
 
@@ -37,6 +37,7 @@ public class SearchController implements Initializable {
     @Autowired
     public SearchController(ProxyClient client) {
         this.client = client;
+        this.client.addWindow(this);
     }
 
     @Override
@@ -61,6 +62,7 @@ public class SearchController implements Initializable {
         mainTableView.setItems(entityObservableList);
 
         pagination.setPageFactory(this::createPage);
+        pagination.setPageCount(1);
 
         TextFields.bindAutoCompletion(
                 teamNameField,
@@ -73,6 +75,14 @@ public class SearchController implements Initializable {
     }
 
     public void onSearchButton(ActionEvent event) {
+        entityObservableList.clear();
+        entityObservableList.addAll(
+                client.findContestants(teamNameField.getText())
+        );
+    }
+
+    @Override
+    public void update() {
         entityObservableList.clear();
         entityObservableList.addAll(
                 client.findContestants(teamNameField.getText())

@@ -1,6 +1,6 @@
 package com.ubb.mpp.client.controller;
 
-import com.ubb.mpp.model.User;
+import com.ubb.mpp.client.ProxyClient;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,29 +25,29 @@ import java.util.ResourceBundle;
 public class MainController extends BaseController implements Initializable {
     @FXML
     public TabPane tabPane;
-    private User currentUser;
     private int searchTabsCount = 0;
     private int registerTabsCount = 0;
     private int listRacesTabsCount = 0;
 
     @Autowired
-    public MainController(ApplicationContext applicationContext) {
-        super(applicationContext);
+    public MainController(ApplicationContext applicationContext, ProxyClient client) {
+        super(applicationContext, client);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
         tabPane.getTabs().clear();
-        try {
-            onListRacesMenuItem(null);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            onListRacesMenuItem(null);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     public void onLogoutMenuItem(ActionEvent event) throws IOException {
         FXMLLoader loader = getFXMLLoader();
+        client.logout();
         Parent root = loader.load(getClass().getResourceAsStream("/view/LoginView.fxml"));
         ((LoginController) loader.getController()).setMainStage(mainStage);
         mainStage.setScene(new Scene(root));
@@ -56,6 +56,7 @@ public class MainController extends BaseController implements Initializable {
     }
 
     public void onCloseMenuItem(ActionEvent event) {
+        client.logout();
         Platform.exit();
     }
 
@@ -80,9 +81,5 @@ public class MainController extends BaseController implements Initializable {
         tabPane.getTabs().add(
                 new Tab("Register Contestant " + ++registerTabsCount, root)
         );
-    }
-
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
     }
 }

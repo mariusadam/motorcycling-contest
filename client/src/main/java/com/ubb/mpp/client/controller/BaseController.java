@@ -1,5 +1,6 @@
 package com.ubb.mpp.client.controller;
 
+import com.ubb.mpp.client.ProxyClient;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
@@ -14,9 +15,11 @@ import java.util.ResourceBundle;
 public abstract class BaseController implements Initializable {
     protected ApplicationContext applicationContext;
     protected Stage mainStage;
+    protected ProxyClient client;
 
-    public BaseController(ApplicationContext applicationContext) {
+    public BaseController(ApplicationContext applicationContext, ProxyClient client) {
         this.applicationContext = applicationContext;
+        this.client = client;
     }
 
     @Override

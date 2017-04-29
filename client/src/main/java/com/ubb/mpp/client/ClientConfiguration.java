@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Scope;
  * @author Marius Adam
  */
 @Configuration
-@ImportResource("classpath:spring-client.xml")
+@ImportResource("/spring-client.xml")
 public class ClientConfiguration {
 
     private ApplicationContext applicationContext;

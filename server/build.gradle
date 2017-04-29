@@ -16,7 +16,8 @@ dependencies {
     compile group: 'mysql', name: 'mysql-connector-java', version:'6.0.5'
     compile 'org.springframework:spring-context:4.3.7.RELEASE'
     compile group: 'org.springframework', name: 'spring-core', version: '4.3.7.RELEASE'
-//    compile group: 'org.hibernate', name: 'hibernate-validator-annotation-processor', version: '4.1.0.Final'
+    compile group: 'org.hibernate', name: 'hibernate-validator-annotation-processor', version: '4.1.0.Final'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
     compile project (':services')
     compile project (':model')
     compile project (':persistence')

@@ -9,5 +9,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class StartServer {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("/spring.server.xml");
+        System.out.println("Waiting for clients");
     }
 }

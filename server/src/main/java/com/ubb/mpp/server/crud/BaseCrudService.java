@@ -20,7 +20,7 @@ public abstract class BaseCrudService<Id, T extends HasId<Id>> {
         this.validator = validator;
     }
 
-    public Collection<T> getAll() throws RepositoryException {
+    public List<T> getAll() throws RepositoryException {
         return getRepository().getAll();
     }
 

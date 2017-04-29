@@ -1,6 +1,7 @@
 package com.ubb.mpp.client;
 
 import com.ubb.mpp.client.controller.LoginController;
+import com.ubb.mpp.services.ContestServer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,11 +18,14 @@ import java.io.IOException;
 public class MainGui extends Application {
 
     private ApplicationContext applicationContext;
+    private ContestServer server;
 
     @Override
     public void init() throws Exception {
         super.init();
         applicationContext = new AnnotationConfigApplicationContext("com.ubb.mpp.client");
+        server = applicationContext.getBean("proxyServer", ContestServer.class);
+        System.out.println("Obtained a reference to server");
     }
 
     @Override

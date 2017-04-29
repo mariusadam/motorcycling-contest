@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,7 +29,7 @@ import java.util.ResourceBundle;
  * @author Marius Adam
  */
 @Component
-public class RacesController implements Initializable {
+public class RacesController implements Initializable, Updatable {
     public CheckListView<EngineCapacity> capacityCheckList;
     public TextField nameField;
     public Pagination pagination;
@@ -40,6 +41,7 @@ public class RacesController implements Initializable {
     @Autowired
     public RacesController(ProxyClient client) {
         this.client = client;
+        this.client.addWindow(this);
     }
 
 
@@ -93,8 +95,16 @@ public class RacesController implements Initializable {
         entityObservableList.addAll(
                 client.findRaces(
                         nameField.getText(),
-                        capacityCheckList.getCheckModel().getCheckedItems()
+                        new ArrayList<>(capacityCheckList.getCheckModel().getCheckedItems())
                 )
+        );
+    }
+
+    @Override
+    public void update() {
+        entityObservableList.clear();
+        entityObservableList.addAll(
+                client.getRaces()
         );
     }
 }

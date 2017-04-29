@@ -1,5 +1,6 @@
 package com.ubb.mpp.server.crud;
 
+import com.ubb.mpp.model.Contestant;
 import com.ubb.mpp.model.EngineCapacity;
 import com.ubb.mpp.model.Race;
 import com.ubb.mpp.persistence.RaceRepository;
@@ -8,6 +9,7 @@ import com.ubb.mpp.server.validator.ValidatorInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,12 +29,18 @@ public class RaceService extends BaseCrudService<Integer, Race>{
         return raceRepository.suggestNames(text);
     }
 
-    public List<Race> findByNameAndCapacities(String raceName, List<EngineCapacity> capacities) {
+    public List<Race> findBy(String raceName, List<EngineCapacity> capacities) {
         return raceRepository.findByNameAndCapacities(raceName, capacities);
     }
 
     @Override
     protected Repository<Integer, Race> getRepository() {
         return raceRepository;
+    }
+
+    public void registerContestant(Contestant contestant, ArrayList<Race> races) {
+        for (Race r : races) {
+            raceRepository.registerContestant(contestant, r);
+        }
     }
 }

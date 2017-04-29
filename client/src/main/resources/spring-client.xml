@@ -4,8 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="proxyServer" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
-        <property name="serviceUrl" value="rmi://localhost:1212/MotoContest"/>
+        <property name="serviceUrl" value="rmi://localhost:1099/MotoContest"/>
         <property name="serviceInterface" value="com.ubb.mpp.services.ContestServer"/>
     </bean>
 
+    <bean id="proxyClient" class="com.ubb.mpp.client.ProxyClient">
+        <constructor-arg name="server" ref="proxyServer"/>
+    </bean>
 </beans>

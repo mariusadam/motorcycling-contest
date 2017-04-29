@@ -1,5 +1,6 @@
 package com.ubb.mpp.persistence;
 
+import com.ubb.mpp.model.Contestant;
 import com.ubb.mpp.model.EngineCapacity;
 import com.ubb.mpp.model.Race;
 import com.ubb.mpp.persistence.mapper.Mapper;
@@ -67,4 +68,18 @@ public class RaceRepository extends DbRepository<Integer, Race> {
     public List<String> suggestNames(String userText) {
         return suggest("name", userText);
     }
+
+    public void registerContestant(Contestant contestant, Race race) {
+        String insertQuery = "INSERT INTO `contestant_race` (contestant_id, race_id) VALUES (?, ?)";
+        try {
+            PreparedStatement stmt = adapter.getConnection().prepareStatement(insertQuery);
+            stmt.setString(1, contestant.getId().toString());
+            stmt.setString(2, race.getId().toString());
+            stmt.execute();
+
+        } catch (SQLException e) {
+            throw new RepositoryException(e);
+        }
+    }
 }
+

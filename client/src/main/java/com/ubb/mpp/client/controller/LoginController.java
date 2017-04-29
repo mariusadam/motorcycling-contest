@@ -1,8 +1,6 @@
 package com.ubb.mpp.client.controller;
 
 import com.ubb.mpp.client.ProxyClient;
-import com.ubb.mpp.model.User;
-import com.ubb.mpp.services.ContestException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,12 +24,10 @@ public class LoginController extends BaseController{
     public PasswordField passwordField;
     public TextField emailField;
     public Text actionTarget;
-    private ProxyClient client;
 
     @Autowired
     public LoginController(ApplicationContext applicationContext, ProxyClient client) {
-        super(applicationContext);
-        this.client = client;
+        super(applicationContext, client);
     }
 
     @Override
@@ -42,19 +38,12 @@ public class LoginController extends BaseController{
     }
 
     public void handleSubmitButtonAction(ActionEvent event) throws IOException {
-        User user;
-        try {
-            user = client.login(emailField.getText(), passwordField.getText());
-        } catch (ContestException e) {
-            e.printStackTrace();
-            return;
-        }
+        client.login(emailField.getText(), passwordField.getText());
 
         FXMLLoader loader = getFXMLLoader();
         Parent root = loader.load(getClass().getResourceAsStream("/view/MainView.fxml"));
 
-        ((MainController) loader.getController()).setCurrentUser(user);
-        ((MainController) loader.getController()).setMainStage(mainStage);
+        ((BaseController) loader.getController()).setMainStage(mainStage);
         mainStage.setScene(new Scene(root, 800, 600));
         mainStage.sizeToScene();
     }
