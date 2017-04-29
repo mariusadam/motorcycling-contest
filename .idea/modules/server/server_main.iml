@@ -16,12 +16,21 @@
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/../../../server/build/classes/main" />
     <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../server/build/generated/source/proto/main/grpc">
+      <sourceFolder url="file://$MODULE_DIR$/../../../server/build/generated/source/proto/main/grpc" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../server/build/generated/source/proto/main/java">
+      <sourceFolder url="file://$MODULE_DIR$/../../../server/build/generated/source/proto/main/java" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../server/src/main">
       <sourceFolder url="file://$MODULE_DIR$/../../../server/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../../../server/src/main/resources" type="java-resource" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: io.grpc:grpc-netty:1.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.grpc:grpc-protobuf:1.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.grpc:grpc-stub:1.3.0" level="project" />
     <orderEntry type="library" name="Gradle: mysql:mysql-connector-java:6.0.5" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-context:4.3.7.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-core:4.3.7.RELEASE" level="project" />
@@ -30,6 +39,14 @@
     <orderEntry type="module" module-name="services_main" />
     <orderEntry type="module" module-name="model_main" />
     <orderEntry type="module" module-name="persistence_main" />
+    <orderEntry type="library" name="Gradle: io.grpc:grpc-core:1.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec-http2:4.1.8.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-handler-proxy:4.1.8.Final" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.protobuf:protobuf-java:3.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.guava:guava:19.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.protobuf:protobuf-java-util:3.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.api.grpc:grpc-google-common-protos:0.1.6" level="project" />
+    <orderEntry type="library" name="Gradle: io.grpc:grpc-protobuf-lite:1.3.0" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-aop:4.3.7.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-beans:4.3.7.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-expression:4.3.7.RELEASE" level="project" />
@@ -38,5 +55,18 @@
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Gradle: log4j:log4j:1.2.17" level="project" />
     <orderEntry type="library" name="Gradle: javax.validation:validation-api:1.0.0.GA" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.errorprone:error_prone_annotations:2.0.19" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.grpc:grpc-context:1.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.instrumentation:instrumentation-api:0.3.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec-http:4.1.8.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-handler:4.1.8.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-transport:4.1.8.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec-socks:4.1.8.Final" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.7" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec:4.1.8.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-buffer:4.1.8.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-resolver:4.1.8.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-common:4.1.8.Final" level="project" />
   </component>
 </module>
