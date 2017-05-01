@@ -1,76 +1,188 @@
-// Copyright 2015, Google Inc.
-// All rights reserved.
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//     * Neither the name of Google Inc. nor the names of its
-// contributors may be used to endorse or promote products derived from
-// this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "com.ubb.mpp.server";
+option java_package = "com.ubb.mpp.motocontest.generated";
+option csharp_namespace = "Generated";
 option java_outer_classname = "MotoContestProto";
-option objc_class_prefix = "HLW";
 
 package motocontest;
 
 // The motorcycling contest service definition.
 service MotoContest {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
-  // Sends another greeting
-  rpc SayHelloAgain (HelloRequest) returns (HelloReply) {}
+    // Sends a greeting
+    rpc SayHello (HelloRequest) returns (HelloReply) {
+    }
+    // Sends another greeting
+    rpc SayHelloAgain (HelloRequest) returns (HelloReply) {
+    }
 
-  // send subscribe requests
-  rpc Subscribe(SubscribeRequest) returns (stream Event) {}
+    // send subscribe requests
+    rpc Subscribe (SubscribeRequest) returns (stream Event) {
+    }
+
+    rpc Login (LoginRequest) returns (LoginReply) {
+    }
+
+    rpc GetContestants (GetContestantsRequest) returns (GetContestantsReply) {
+    }
+
+    rpc Search (SearchContestantsRequest) returns (SearchContestantsReply) {
+    }
+
+    rpc GetRaces (Empty) returns (GetRacesReply) {
+    }
+
+    rpc RegisterContestant (RegisterContestantRequest) returns (SimpleReply) {
+    }
+
+    rpc GetTeams (Empty) returns (GetTeamsReply) {
+    }
+
+    rpc GetEngineCapacities (Empty) returns (GetEngineCapacitiesReply) {
+    }
+
+    rpc AddTeam(AddTeamRequest) returns (SimpleReply) {}
+
+    rpc GetRacesParticipants(Empty) returns (stream RaceParticipants) {}
+}
+
+message RaceParticipants {
+    RaceDto race = 1;
+    int32 numberOfParticipants = 2;
+}
+
+message AddTeamRequest {
+    string teamName = 1;
+}
+
+message GetTeamsReply  {
+    string message = 1;
+    Status status = 2;
+    repeated TeamDto team = 3;
+}
+
+message GetEngineCapacitiesReply  {
+    string message = 1;
+    Status status = 2;
+    repeated EngineCapacityDto engineCapacity = 3;
+}
+
+message RegisterContestantRequest {
+    string contestantName = 1;
+    TeamDto team = 2;
+    EngineCapacityDto engineCapacity = 3;
+    repeated RaceDto race = 4;
+}
+
+message SimpleReply {
+    string message = 1;
+    Status status = 2;
+}
+
+message GetRacesReply {
+    string message = 1;
+    Status status = 2;
+    repeated RaceDto race = 3;
+}
+
+message Empty {
+
+}
+
+message LoginRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LoginReply {
+    string message = 1;
+    Status status = 2;
+}
+
+enum Status {
+    OK = 0;
+    UNAUTHORIZED = 1;
+    ERROR = 3;
+}
+
+message GetContestantsRequest {
+
+}
+
+message GetContestantsReply {
+    string message = 1;
+    Status status = 2;
+    repeated ContestantDto contestant = 3;
+}
+
+message SearchContestantsRequest {
+    string teamName = 1;
+}
+
+message SearchContestantsReply {
+    string message = 1;
+    Status status = 2;
+    repeated ContestantDto contestant = 3;
 }
 
 // The request message containing the user's name.
 message HelloRequest {
-  string name = 1;
+    string name = 1;
 }
 
 // The response message containing the greetings
 message HelloReply {
-  string message = 1;
-}
-
-message BroadcastRequest {
     string message = 1;
 }
 
 message SubscribeRequest {
-    repeated Event.Name event = 1;
+    repeated Event.Name eventName = 1;
 }
+
 
 message Event {
     enum Name {
         CONTESTANT_REGISTERED = 0;
         HELLO = 1;
         HELLO_AGAIN = 2;
+        TEAM_ADDED = 3;
     }
 
     Name name = 1;
+}
+
+message UserDto {
+    int32 id = 1;
+    string firstName = 2;
+    string lastName = 3;
+    string email = 4;
+}
+
+message TeamDto {
+    int32 id = 1;
+    string name = 2;
+}
+
+message ContestantDto {
+    int32 id = 1;
+    string name = 2;
+    TeamDto team = 3;
+    EngineCapacityDto engineCapacity = 4;
+}
+
+message EngineCapacityDto {
+    int32 id = 1;
+    UM um = 2;
+    double capacity = 3;
+
+    enum UM {
+        MC = 0;
+        CC = 1;
+    }
+}
+
+message RaceDto {
+    int32 id = 1;
+    string name = 2;
+    int64 startTime = 3;
 }

@@ -124,7 +124,7 @@ public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> 
         return getAll().size();
     }
 
-    public List<String> suggest(String column, Object value) {
+    public List<String> suggest(String column, Object value) throws RepositoryException {
         try {
             String query = String.format(
                     "SELECT r.%s from %s r WHERE r.%s like ? limit 10",

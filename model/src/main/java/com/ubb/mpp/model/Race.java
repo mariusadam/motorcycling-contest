@@ -8,15 +8,7 @@ import java.util.Date;
 public class Race extends Entity<Integer> {
     private String name;
     private Date startTime;
-    private EngineCapacity engineCapacity;
 
-    public EngineCapacity getEngineCapacity() {
-        return engineCapacity;
-    }
-
-    public void setEngineCapacity(EngineCapacity engineCapacity) {
-        this.engineCapacity = engineCapacity;
-    }
     public Date getStartTime() {
         return startTime;
     }
@@ -35,6 +27,6 @@ public class Race extends Entity<Integer> {
 
     @Override
     public String toString() {
-        return name + " (" + engineCapacity + ")";
+        return name;
     }
 }

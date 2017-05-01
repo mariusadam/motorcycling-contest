@@ -1,5 +1,6 @@
 package com.ubb.mpp.server;
 
+import com.ubb.mpp.motocontest.generated.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
@@ -96,7 +97,7 @@ public class MotoContestClient  {
                 new Consumer<Integer>() {
                     @Override
                     public void accept(Integer integer) {
-                        srb.addEvent(Event.Name.forNumber(integer));
+                        srb.addEventName(Event.Name.forNumber(integer));
                     }
                 }
         );

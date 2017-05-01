@@ -27,7 +27,7 @@ public class RaceRepository extends DbRepository<Integer, Race> {
         super(adapter, mapper, tableName);
     }
 
-    public List<Race> findByNameAndCapacities(String name, Collection<EngineCapacity> capacities) {
+    public List<Race> findByNameAndCapacities(String name, Collection<EngineCapacity> capacities) throws RepositoryException {
         String query = String.format("SELECT r.* FROM `%s` r", tableName);
         Collection<String> where = new ArrayList<>();
         ArrayList<String> params = new ArrayList<>();
@@ -65,11 +65,11 @@ public class RaceRepository extends DbRepository<Integer, Race> {
         }
     }
 
-    public List<String> suggestNames(String userText) {
+    public List<String> suggestNames(String userText) throws RepositoryException {
         return suggest("name", userText);
     }
 
-    public void registerContestant(Contestant contestant, Race race) {
+    public void registerContestant(Contestant contestant, Race race) throws RepositoryException {
         String insertQuery = "INSERT INTO `contestant_race` (contestant_id, race_id) VALUES (?, ?)";
         try {
             PreparedStatement stmt = adapter.getConnection().prepareStatement(insertQuery);
@@ -77,6 +77,23 @@ public class RaceRepository extends DbRepository<Integer, Race> {
             stmt.setString(2, race.getId().toString());
             stmt.execute();
 
+        } catch (SQLException e) {
+            throw new RepositoryException(e);
+        }
+    }
+
+    public int countParticipants(Race race) {
+        String insertQuery = "SELECT COUNT(*) AS total FROM `contestant_race` cr WHERE cr.race_id = ?";
+        try {
+            PreparedStatement stmt = adapter.getConnection().prepareStatement(insertQuery);
+            stmt.setInt(1, race.getId());
+            stmt.execute();
+            ResultSet rs = stmt.getResultSet();
+            if (rs.next()) {
+                return rs.getInt("total");
+            }
+
+            return 0;
         } catch (SQLException e) {
             throw new RepositoryException(e);
         }

@@ -1,7 +1,8 @@
 package com.ubb.mpp.server;
 
-import io.grpc.StatusRuntimeException;
+import com.ubb.mpp.motocontest.generated.Event;
 import io.grpc.stub.StreamObserver;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 import java.util.logging.Logger;
@@ -9,6 +10,7 @@ import java.util.logging.Logger;
 /**
  * @author Marius Adam
  */
+@Component
 public class EventDispatcher {
     private static final Logger logger = Logger.getLogger(EventDispatcher.class.getName());
 
@@ -35,12 +37,20 @@ public class EventDispatcher {
             for (StreamObserver<Event> eventStreamObserver : subscribers) {
                 try {
                     eventStreamObserver.onNext(event);
-                } catch (StatusRuntimeException ex) {
+                } catch (Throwable ex) {
                     logger.warning(ex.getMessage());
                     toRemove.add(eventStreamObserver);
                 }
             }
             subscribers.removeAll(toRemove);
         }
+    }
+
+    public synchronized void dispatch(Event.Name eventName) {
+        dispatch(Event
+                .newBuilder()
+                .setName(eventName)
+                .build()
+        );
     }
 }

@@ -20,7 +20,7 @@ public class TeamRepository extends DbRepository<Integer, Team> {
         super(adapter, mapper, tableName);
     }
 
-    public List<String> suggestNames(String userText) {
+    public List<String> suggestNames(String userText) throws RepositoryException {
         return suggest("name", userText);
     }
 }

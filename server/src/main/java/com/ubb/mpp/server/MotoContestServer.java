@@ -2,26 +2,35 @@ package com.ubb.mpp.server;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-import io.grpc.stub.StreamObserver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
 
 /**
  * @author Marius Adam
  */
+@Component
 public class MotoContestServer {
     private static final Logger logger = Logger.getLogger(MotoContestServer.class.getName());
 
     private Server server;
+    private MotoContestImpl serviceImpl;
+
+    /* The port on which the server should run */
+    private int port = 50051;
+
+    @Autowired
+    public MotoContestServer(MotoContestImpl serviceImpl) {
+        this.serviceImpl = serviceImpl;
+    }
 
     private void start() throws IOException {
-    /* The port on which the server should run */
-        int port = 50051;
         server = ServerBuilder.forPort(port)
-                .addService(new MotoContestImpl())
+                .addService(serviceImpl)
                 .build()
                 .start();
         logger.info("Server started, listening on " + port);
@@ -55,50 +64,14 @@ public class MotoContestServer {
      * Main launches the server from the command line.
      */
     public static void main(String[] args) throws IOException, InterruptedException {
-        final MotoContestServer server = new MotoContestServer();
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("/spring.server.xml");
+        final MotoContestServer server = applicationContext.getBean(MotoContestServer.class);
+
+        if (args.length > 0) {
+            server.port = Integer.parseInt(args[0]);
+        }
+
         server.start();
         server.blockUntilShutdown();
-    }
-
-    static class MotoContestImpl extends MotoContestGrpc.MotoContestImplBase {
-
-        private EventDispatcher eventDispatcher = new EventDispatcher();
-
-        @Override
-        public void sayHello(HelloRequest req, StreamObserver<HelloReply> responseObserver) {
-            HelloReply reply = HelloReply.newBuilder().setMessage("Hello " + req.getName()).build();
-            try {
-                Thread.sleep(2);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            responseObserver.onNext(reply);
-            responseObserver.onCompleted();
-            eventDispatcher.dispatch(
-                    Event.newBuilder()
-                            .setName(Event.Name.HELLO)
-                            .build()
-            );
-        }
-
-        @Override
-        public void sayHelloAgain(HelloRequest req, StreamObserver<HelloReply> responseObserver) {
-            HelloReply reply = HelloReply.newBuilder().setMessage("Hello again " + req.getName()).build();
-            responseObserver.onNext(reply);
-            responseObserver.onCompleted();
-            eventDispatcher.dispatch(
-                    Event.newBuilder()
-                            .setName(Event.Name.HELLO_AGAIN)
-                            .build()
-            );
-        }
-
-        @Override
-        public void subscribe(SubscribeRequest request, StreamObserver<Event> responseObserver) {
-            Set<Event.Name> requestSet = new HashSet<>(request.getEventList());
-            requestSet.forEach(
-                    name -> eventDispatcher.addListener(name, responseObserver)
-            );
-        }
     }
 }

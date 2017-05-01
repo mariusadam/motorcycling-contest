@@ -1,7 +1,6 @@
 package com.ubb.mpp.persistence.mapper;
 
 import com.ubb.mpp.model.Race;
-import com.ubb.mpp.persistence.EngineCapacityRepository;
 import com.ubb.mpp.persistence.RepositoryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,11 +16,9 @@ import java.util.Map;
  */
 @Service
 public class RaceMapper implements Mapper<Race> {
-    private EngineCapacityRepository engineCapacityRepository;
 
     @Autowired
-    public RaceMapper(EngineCapacityRepository engineCapacityRepository) {
-        this.engineCapacityRepository = engineCapacityRepository;
+    public RaceMapper() {
     }
 
     @Override
@@ -36,7 +33,6 @@ public class RaceMapper implements Mapper<Race> {
                 .format(obj.getStartTime());
 
         map.put("start_time", formattedDate);
-        map.put("engine_capacity_id", obj.getEngineCapacity().getId().toString());
         return map;
     }
 
@@ -47,9 +43,6 @@ public class RaceMapper implements Mapper<Race> {
             obj.setId(rs.getInt("id"));
             obj.setName(rs.getString("name"));
             obj.setStartTime(rs.getTimestamp("start_time"));
-            obj.setEngineCapacity(
-                    engineCapacityRepository.findById(rs.getInt("engine_capacity_id"))
-            );
         } catch (SQLException e) {
             throw new RepositoryException(e);
         }

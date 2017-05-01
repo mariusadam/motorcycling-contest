@@ -1,6 +1,7 @@
 package com.ubb.mpp.persistence.mapper;
 
 import com.ubb.mpp.model.Contestant;
+import com.ubb.mpp.model.EngineCapacity;
 import com.ubb.mpp.model.Team;
 import com.ubb.mpp.persistence.Repository;
 import com.ubb.mpp.persistence.RepositoryException;
@@ -18,10 +19,12 @@ import java.util.Map;
 @Service
 public class ContestantMapper implements Mapper<Contestant> {
     private Repository<Integer, Team> teamRepository;
+    private Repository<Integer, EngineCapacity> engineCapacityRepository;
 
     @Autowired
-    public ContestantMapper(Repository<Integer, Team> teamRepository) {
+    public ContestantMapper(Repository<Integer, Team> teamRepository, Repository<Integer, EngineCapacity> engineCapacityRepository) {
         this.teamRepository = teamRepository;
+        this.engineCapacityRepository = engineCapacityRepository;
     }
 
     @Override
@@ -33,6 +36,7 @@ public class ContestantMapper implements Mapper<Contestant> {
         }
         map.put("name", obj.getName());
         map.put("team_id", obj.getTeam().getId().toString());
+        map.put("engine_capacity_id", obj.getEngineCapacity().getId().toString());
 
         return map;
     }
@@ -44,7 +48,9 @@ public class ContestantMapper implements Mapper<Contestant> {
             c.setId(rs.getInt("id"));
             c.setName(rs.getString("name"));
             c.setTeam(teamRepository.findById(rs.getInt("team_id")));
-
+            c.setEngineCapacity(
+                    engineCapacityRepository.findById(rs.getInt("engine_capacity_id"))
+            );
             return c;
         } catch (SQLException e) {
             throw new RepositoryException(e);

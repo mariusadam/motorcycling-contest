@@ -23,8 +23,12 @@ public class ContestantRepository extends DbRepository<Integer, Contestant> {
         super(adapter, mapper, tableName);
     }
 
-    public List<Contestant> findByTeamName(String text) {
+    public List<Contestant> findBy(String teamName) throws RepositoryException {
         try {
+            if (teamName == null) {
+                teamName = "";
+            }
+
             String query = String.format(
                     "SELECT r.* from %s r " +
                             "INNER JOIN team t on t.id = r.team_id " +
@@ -32,7 +36,7 @@ public class ContestantRepository extends DbRepository<Integer, Contestant> {
                     tableName
             );
             PreparedStatement stmt = adapter.getConnection().prepareStatement(query);
-            stmt.setString(1, "%" + text + "%");
+            stmt.setString(1, "%" + teamName + "%");
 
             stmt.execute();
             ResultSet rs = stmt.getResultSet();

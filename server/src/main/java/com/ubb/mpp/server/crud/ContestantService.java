@@ -1,7 +1,10 @@
 package com.ubb.mpp.server.crud;
 
 import com.ubb.mpp.model.Contestant;
+import com.ubb.mpp.model.EngineCapacity;
+import com.ubb.mpp.model.Team;
 import com.ubb.mpp.persistence.ContestantRepository;
+import com.ubb.mpp.persistence.EngineCapacityRepository;
 import com.ubb.mpp.persistence.Repository;
 import com.ubb.mpp.persistence.TeamRepository;
 import com.ubb.mpp.server.validator.ValidatorInterface;
@@ -17,12 +20,14 @@ import java.util.List;
 public class ContestantService extends BaseCrudService<Integer, Contestant> {
     private ContestantRepository contestantRepository;
     private TeamRepository teamRepository;
+    private EngineCapacityRepository engineCapacityRepository;
 
     @Autowired
-    public ContestantService(ValidatorInterface validator, ContestantRepository contestantRepository, TeamRepository teamRepository) {
+    public ContestantService(ValidatorInterface validator, ContestantRepository contestantRepository, TeamRepository teamRepository, EngineCapacityRepository engineCapacityRepository) {
         super(validator);
         this.contestantRepository = contestantRepository;
         this.teamRepository = teamRepository;
+        this.engineCapacityRepository = engineCapacityRepository;
     }
 
     @Override
@@ -31,13 +36,14 @@ public class ContestantService extends BaseCrudService<Integer, Contestant> {
     }
 
     public List<Contestant> findBy(String teamName) {
-        return contestantRepository.findByTeamName(teamName);
+        return contestantRepository.findBy(teamName);
     }
 
-    public Contestant create(String cname, String tname) {
+    public Contestant create(String contestantName, Team team, EngineCapacity ec) {
         Contestant contestant = new Contestant();
-        contestant.setName(cname);
-        contestant.setTeam(teamRepository.findOneBy("name", tname));
+        contestant.setName(contestantName);
+        contestant.setTeam(team);
+        contestant.setEngineCapacity(ec);
         validator.validate(contestant);
         contestantRepository.insert(contestant);
 

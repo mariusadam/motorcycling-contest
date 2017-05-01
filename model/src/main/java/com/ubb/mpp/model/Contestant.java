@@ -6,6 +6,7 @@ package com.ubb.mpp.model;
 public class Contestant extends Entity<Integer> {
     private String name;
     private Team team;
+    private EngineCapacity engineCapacity;
 
     public String getName() {
         return name;
@@ -21,5 +22,13 @@ public class Contestant extends Entity<Integer> {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public EngineCapacity getEngineCapacity() {
+        return engineCapacity;
+    }
+
+    public void setEngineCapacity(EngineCapacity engineCapacity) {
+        this.engineCapacity = engineCapacity;
     }
 }

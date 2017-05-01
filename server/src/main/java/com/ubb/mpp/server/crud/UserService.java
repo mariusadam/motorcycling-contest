@@ -59,9 +59,7 @@ public class UserService extends BaseCrudService<Integer, User> {
 
     public User getUser(String email, String plainPassword) throws RepositoryException {
         User user = this.repository.findByEmail(email);
-        if (user == null) {
-            return null;
-        }
+
         user.eraseCredentials();
         String hashedPass = encodePassword(plainPassword, user.getSalt());
         return hashedPass.equals(user.getPassword()) ?

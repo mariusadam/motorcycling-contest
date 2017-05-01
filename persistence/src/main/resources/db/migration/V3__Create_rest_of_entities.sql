@@ -11,7 +11,6 @@ CREATE TABLE `race`
   `id`         INTEGER AUTO_INCREMENT,
   `name`       VARCHAR(50) NOT NULL,
   `start_time` TIMESTAMP   NOT NULL,
-  `engine_capacity_id` INTEGER REFERENCES `engine_capacity`(`id`),
   PRIMARY KEY (`id`)
 );
 
@@ -27,6 +26,7 @@ CREATE TABLE `contestant`
   `id`      INTEGER AUTO_INCREMENT,
   `name`    VARCHAR(50),
   `team_id` INTEGER REFERENCES `team` (`id`),
+  `engine_capacity_id` INTEGER REFERENCES `engine_capacity`(`id`),
   PRIMARY KEY (`id`)
 );
 
@@ -48,13 +48,13 @@ INSERT INTO `engine_capacity`
   (3, 650, 'cc');
 
 INSERT INTO `race`
-(`name`, `start_time`, `engine_capacity_id`)
+(`name`, `start_time`)
 VALUES
-  ('Race 1', '2017-04-07 19:35:00', 1),
-  ('Race 2', '2017-05-07 19:35:00', 2),
-  ('Race 3', '2017-06-07 19:35:00', 3),
-  ('Race 4', '2017-07-07 19:35:00', 1),
-  ('Race 5', '2017-08-07 19:35:00', 2);
+  ('Race 1', '2017-04-07 19:35:00'),
+  ('Race 2', '2017-05-07 19:35:00'),
+  ('Race 3', '2017-06-07 19:35:00'),
+  ('Race 4', '2017-07-07 19:35:00'),
+  ('Race 5', '2017-08-07 19:35:00');
 
 
 INSERT INTO `team`
@@ -67,18 +67,18 @@ VALUES
   (5, 'Team 5');
 
 INSERT INTO `contestant`
-(`id`, `name`, `team_id`)
+(`id`, `name`, `team_id`, `engine_capacity_id`)
 VALUES
-  (1, 'Contestant 1', 1),
-  (2, 'Contestant 2', 1),
-  (3, 'Contestant 3', 2),
-  (4, 'Contestant 4', 3),
-  (5, 'Contestant 5', 3),
-  (6, 'Contestant 6', 3),
-  (7, 'Contestant 7', 3),
-  (8, 'Contestant 8', 3),
-  (9, 'Contestant 9', 4),
-  (10, 'Contestant 10', 5);
+  (1, 'Contestant 1', 1, 1),
+  (2, 'Contestant 2', 1, 2),
+  (3, 'Contestant 3', 2, 3),
+  (4, 'Contestant 4', 3, 1),
+  (5, 'Contestant 5', 3, 2),
+  (6, 'Contestant 6', 3, 3),
+  (7, 'Contestant 7', 3, 1),
+  (8, 'Contestant 8', 3, 2),
+  (9, 'Contestant 9', 4, 3),
+  (10, 'Contestant 10', 5, 1);
 
 INSERT INTO `contestant_race`
 (`contestant_id`, `race_id`)
