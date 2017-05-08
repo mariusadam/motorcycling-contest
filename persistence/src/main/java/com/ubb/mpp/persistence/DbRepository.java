@@ -4,6 +4,7 @@ import com.ubb.mpp.model.HasId;
 import com.ubb.mpp.persistence.adapter.Adapter;
 import com.ubb.mpp.persistence.mapper.Mapper;
 
+import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ import java.util.*;
 /**
  * @author Marius Adam
  */
-public class DbRepository<Id, T extends HasId<Id>> implements Repository<Id, T> {
+public class DbRepository<Id extends Serializable, T extends HasId<Id>> implements Repository<Id, T> {
     protected Adapter adapter;
     protected Mapper<T> mapper;
     protected String tableName;

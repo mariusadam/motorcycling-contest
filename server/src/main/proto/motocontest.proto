@@ -41,9 +41,11 @@ service MotoContest {
     rpc GetEngineCapacities (Empty) returns (GetEngineCapacitiesReply) {
     }
 
-    rpc AddTeam(AddTeamRequest) returns (SimpleReply) {}
+    rpc AddTeam (AddTeamRequest) returns (SimpleReply) {
+    }
 
-    rpc GetRacesParticipants(Empty) returns (stream RaceParticipants) {}
+    rpc GetRacesParticipants (Empty) returns (stream RaceParticipants) {
+    }
 }
 
 message RaceParticipants {
@@ -55,13 +57,13 @@ message AddTeamRequest {
     string teamName = 1;
 }
 
-message GetTeamsReply  {
+message GetTeamsReply {
     string message = 1;
     Status status = 2;
     repeated TeamDto team = 3;
 }
 
-message GetEngineCapacitiesReply  {
+message GetEngineCapacitiesReply {
     string message = 1;
     Status status = 2;
     repeated EngineCapacityDto engineCapacity = 3;

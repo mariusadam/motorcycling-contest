@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author Marius Adam
  */
-public interface HasId<Id> extends Serializable{
+public interface HasId<Id extends Serializable> extends Serializable{
     /**
      *
      * @return Id

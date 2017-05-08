@@ -5,6 +5,7 @@ import com.ubb.mpp.persistence.Repository;
 import com.ubb.mpp.persistence.RepositoryException;
 import com.ubb.mpp.server.validator.ValidatorInterface;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.NoSuchElementException;
 /**
  * @author Marius Adam
  */
-public abstract class BaseCrudService<Id, T extends HasId<Id>> {
+public abstract class BaseCrudService<Id extends Serializable, T extends HasId<Id>> {
     protected ValidatorInterface validator;
 
     public BaseCrudService(ValidatorInterface validator) {

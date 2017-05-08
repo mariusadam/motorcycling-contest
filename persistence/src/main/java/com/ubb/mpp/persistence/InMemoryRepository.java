@@ -2,6 +2,7 @@ package com.ubb.mpp.persistence;
 
 import com.ubb.mpp.model.HasId;
 
+import java.io.Serializable;
 import java.util.*;
 
 ;
@@ -9,7 +10,7 @@ import java.util.*;
 /**
  * @author Marius Adam
  */
-public class InMemoryRepository<Id, T extends HasId<Id>> implements Repository<Id, T> {
+public class InMemoryRepository<Id extends Serializable, T extends HasId<Id>> implements Repository<Id, T> {
     private Map<Id, T> items;
 
     public InMemoryRepository() {

@@ -2,6 +2,7 @@ package com.ubb.mpp.persistence;
 
 import com.ubb.mpp.model.HasId;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.Map;
 /**
  * @author Marius Adam
  */
-public interface Repository<Id, T extends HasId<Id>> {
+public interface Repository<Id extends Serializable, T extends HasId<Id>> {
     /**
      * Inserts a new entity into the repository
      *

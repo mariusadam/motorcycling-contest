@@ -1,9 +1,11 @@
 package com.ubb.mpp.model;
 
+import java.io.Serializable;
+
 /**
  *
  */
-public abstract class Entity<Id> implements HasId<Id> {
+public abstract class Entity<Id extends Serializable> implements HasId<Id> {
     private Id id;
 
     public Entity() {

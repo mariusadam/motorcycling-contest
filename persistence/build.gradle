@@ -14,10 +14,20 @@ repositories {
     mavenCentral()
 }
 
+def hibernateVersion = '4.1.6.Final'
+def springVersion = '4.3.7.RELEASE'
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile group: 'mysql', name: 'mysql-connector-java', version:'6.0.5'
-    compile 'org.springframework:spring-context:4.3.7.RELEASE'
-    compile group: 'org.springframework', name: 'spring-core', version: '4.3.7.RELEASE'
+
+    compile group: 'org.hibernate', name: 'hibernate-core', version: "${hibernateVersion}"
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: "${hibernateVersion}"
+
+    compile group: 'org.springframework', name: 'spring-orm', version: "${springVersion}"
+    compile group: 'org.springframework', name: 'spring-context', version: "${springVersion}"
+
+    compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+
     compile project (':model')
 }

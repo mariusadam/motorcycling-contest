@@ -21,11 +21,7 @@ public class EventDispatcher {
     }
 
     public void addListener(Event.Name eventName, StreamObserver<Event> listener) {
-        List<StreamObserver<Event>> events = listeners.get(eventName);
-        if (events == null) {
-            events = Collections.synchronizedList(new ArrayList<>());
-            listeners.put(eventName, events);
-        }
+        List<StreamObserver<Event>> events = listeners.computeIfAbsent(eventName, k -> Collections.synchronizedList(new ArrayList<>()));
 
         events.add(listener);
     }

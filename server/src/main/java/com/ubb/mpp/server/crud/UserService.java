@@ -1,9 +1,7 @@
 package com.ubb.mpp.server.crud;
 
 import com.ubb.mpp.model.User;
-import com.ubb.mpp.persistence.Repository;
-import com.ubb.mpp.persistence.RepositoryException;
-import com.ubb.mpp.persistence.UserRepository;
+import com.ubb.mpp.persistence.*;
 import com.ubb.mpp.server.validator.EntityValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +20,7 @@ public class UserService extends BaseCrudService<Integer, User> {
     private Random random;
 
     @Autowired
-    public UserService(UserRepository repository, EntityValidator validator) {
+    public UserService(UserRepositoryHbn repository, EntityValidator validator) {
         super(validator);
         this.repository = repository;
         this.random = new SecureRandom();
