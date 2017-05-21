@@ -40,7 +40,7 @@ public class DbRepository<Id extends Serializable, T extends HasId<Id>> implemen
         T obj = findById(id);
 
         try {
-            adapter.getDeleteStatement(tableName, id);
+            adapter.getDeleteStatement(tableName, id).execute();
             return obj;
         } catch (SQLException e) {
             throw new RepositoryException(e);
@@ -51,7 +51,7 @@ public class DbRepository<Id extends Serializable, T extends HasId<Id>> implemen
     public void update(T entity) throws RepositoryException {
         Map<String, String> props = mapper.toMap(entity);
         try {
-            adapter.getUpdateStatement(tableName, props);
+            adapter.getUpdateStatement(tableName, props).execute();
         } catch (SQLException e) {
             throw new RepositoryException(e);
         }

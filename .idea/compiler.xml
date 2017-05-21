@@ -8,14 +8,12 @@
       <module name="model_test" target="1.8" />
       <module name="motorcycling-contest_main" target="1.8" />
       <module name="motorcycling-contest_test" target="1.8" />
-      <module name="networking_main" target="1.8" />
-      <module name="networking_test" target="1.8" />
       <module name="persistence_main" target="1.8" />
       <module name="persistence_test" target="1.8" />
+      <module name="restapi_main" target="1.8" />
+      <module name="restapi_test" target="1.8" />
       <module name="server_main" target="1.8" />
       <module name="server_test" target="1.8" />
-      <module name="services_main" target="1.8" />
-      <module name="services_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -4,10 +4,6 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/../../../server/src/main/java/com/ubb/mpp/server/Application.java</file>
-          <file>file://$MODULE_DIR$/../../../server/src/main/java/com/ubb/mpp/server/WebServiceConfig.java</file>
-          <file>file://$MODULE_DIR$/../../../server/src/main/resources/spring-config.xml</file>
-          <file>file://$MODULE_DIR$/../../../persistence/src/main/resources/persistence-config.xml</file>
           <file>file://$MODULE_DIR$/../../../server/src/main/resources/spring.server.xml</file>
         </fileset>
       </configuration>
@@ -36,6 +32,7 @@
     <orderEntry type="library" name="Gradle: org.springframework:spring-core:4.3.7.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.hibernate:hibernate-validator-annotation-processor:4.1.0.Final" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-log4j12:1.7.25" level="project" />
+    <orderEntry type="library" name="Gradle: com.rabbitmq:amqp-client:4.1.0" level="project" />
     <orderEntry type="module" module-name="model_main" />
     <orderEntry type="module" module-name="persistence_main" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-core:1.3.0" level="project" />

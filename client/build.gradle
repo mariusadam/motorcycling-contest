@@ -14,5 +14,7 @@ targetCompatibility = 1.8
 dependencies {
     compile 'org.springframework:spring-context:4.3.7.RELEASE'
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.12'
+    compile 'com.rabbitmq:amqp-client:4.1.0'
+
     compile project (':model')
 }

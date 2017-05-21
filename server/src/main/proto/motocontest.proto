@@ -9,17 +9,6 @@ package motocontest;
 
 // The motorcycling contest service definition.
 service MotoContest {
-    // Sends a greeting
-    rpc SayHello (HelloRequest) returns (HelloReply) {
-    }
-    // Sends another greeting
-    rpc SayHelloAgain (HelloRequest) returns (HelloReply) {
-    }
-
-    // send subscribe requests
-    rpc Subscribe (SubscribeRequest) returns (stream Event) {
-    }
-
     rpc Login (LoginRequest) returns (LoginReply) {
     }
 
@@ -135,22 +124,6 @@ message HelloRequest {
 // The response message containing the greetings
 message HelloReply {
     string message = 1;
-}
-
-message SubscribeRequest {
-    repeated Event.Name eventName = 1;
-}
-
-
-message Event {
-    enum Name {
-        CONTESTANT_REGISTERED = 0;
-        HELLO = 1;
-        HELLO_AGAIN = 2;
-        TEAM_ADDED = 3;
-    }
-
-    Name name = 1;
 }
 
 message UserDto {

@@ -125,4 +125,30 @@ public class Converter {
                 .setStartTime(race.getStartTime().getTime())
                 .build();
     }
+
+//    public com.ubb.mpp.motocontest.generated.Event.Name toDto(Event event) {
+//        switch (event) {
+//            case ContestantRegistered:
+//                return com.ubb.mpp.motocontest.generated.Event.Name.CONTESTANT_REGISTERED;
+//            case TeamAdded:
+//                return com.ubb.mpp.motocontest.generated.Event.Name.TEAM_ADDED;
+//            default:
+//                throw new RuntimeException("Missing switch case");
+//        }
+//    }
+//
+//    public Event toPojo(com.ubb.mpp.motocontest.generated.Event.Name eventDto) {
+//        switch (eventDto) {
+//
+//            case CONTESTANT_REGISTERED:
+//                return Event.ContestantRegistered;
+//            case TEAM_ADDED:
+//                return Event.TeamAdded;
+//            case HELLO:
+//            case HELLO_AGAIN:
+//            case UNRECOGNIZED:
+//            default:
+//                throw new RuntimeException("Missing switch branch");
+//        }
+//    }
 }

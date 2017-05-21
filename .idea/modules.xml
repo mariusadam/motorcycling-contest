@@ -14,9 +14,13 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/persistence/persistence.iml" filepath="$PROJECT_DIR$/.idea/modules/persistence/persistence.iml" group="persistence" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/persistence/persistence_main.iml" filepath="$PROJECT_DIR$/.idea/modules/persistence/persistence_main.iml" group="persistence" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/persistence/persistence_test.iml" filepath="$PROJECT_DIR$/.idea/modules/persistence/persistence_test.iml" group="persistence" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/restapi/restapi.iml" filepath="$PROJECT_DIR$/.idea/modules/restapi/restapi.iml" group="restapi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/restapi/restapi_main.iml" filepath="$PROJECT_DIR$/.idea/modules/restapi/restapi_main.iml" group="restapi" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/restapi/restapi_test.iml" filepath="$PROJECT_DIR$/.idea/modules/restapi/restapi_test.iml" group="restapi" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server.iml" group="server" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server_main.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server_main.iml" group="server" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server_test.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server_test.iml" group="server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/services/services.iml" filepath="$PROJECT_DIR$/.idea/modules/services/services.iml" group="services" />
     </modules>
   </component>
 </project>

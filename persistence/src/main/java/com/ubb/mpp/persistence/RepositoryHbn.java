@@ -108,8 +108,8 @@ public abstract class RepositoryHbn<Id extends Serializable, T extends HasId<Id>
         return result.iterator().next();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked")
     public List<T> getAll() {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
@@ -128,6 +128,7 @@ public abstract class RepositoryHbn<Id extends Serializable, T extends HasId<Id>
 
     @Override
     public int size() throws RepositoryException {
-        return 0;
+        // TODO: replace this method with a query because it is stupid to do it like that
+        return getAll().size();
     }
 }

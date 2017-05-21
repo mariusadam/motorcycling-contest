@@ -9,5 +9,4 @@
 
     <import resource="persistence-config.xml"/>
     <context:component-scan base-package="com.ubb.mpp.server"/>
-
 </beans>

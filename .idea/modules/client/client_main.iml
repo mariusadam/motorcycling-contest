@@ -4,8 +4,8 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
-          <file>file://$MODULE_DIR$/../../../client/src/main/java/com/ubb/mpp/client/ClientConfiguration.java</file>
           <file>file://$MODULE_DIR$/../../../client/src/main/resources/spring-client.xml</file>
+          <file>file://$MODULE_DIR$/../../../client/src/main/java/com/ubb/mpp/client/ClientConfiguration.java</file>
         </fileset>
       </configuration>
     </facet>
@@ -21,11 +21,13 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-context:4.3.7.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.controlsfx:controlsfx:8.40.12" level="project" />
+    <orderEntry type="library" name="Gradle: com.rabbitmq:amqp-client:4.1.0" level="project" />
     <orderEntry type="module" module-name="model_main" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-aop:4.3.7.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-beans:4.3.7.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-core:4.3.7.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-expression:4.3.7.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.21" level="project" />
     <orderEntry type="library" name="Gradle: org.hibernate:hibernate-core:4.1.6.Final" level="project" />
     <orderEntry type="library" name="Gradle: javax.validation:validation-api:1.0.0.GA" level="project" />
     <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.2" level="project" />

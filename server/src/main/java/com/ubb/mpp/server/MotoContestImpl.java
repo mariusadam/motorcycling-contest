@@ -6,13 +6,14 @@ import com.ubb.mpp.model.User;
 import com.ubb.mpp.motocontest.generated.*;
 import com.ubb.mpp.persistence.RepositoryException;
 import com.ubb.mpp.server.crud.*;
+import com.ubb.mpp.server.events.Event;
+import com.ubb.mpp.server.events.EventDispatcher;
 import io.grpc.stub.StreamObserver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -31,7 +32,7 @@ public class MotoContestImpl extends MotoContestGrpc.MotoContestImplBase {
     private EngineCapacityService ecService;
 
     @Autowired
-    public MotoContestImpl(EventDispatcher eventDispatcher, UserService userService, ContestantService contestantService, Converter converter, RaceService raceService, TeamService teamService, EngineCapacityService ecService) {
+    public MotoContestImpl(@Qualifier("rmqEventDispatcher") EventDispatcher eventDispatcher, UserService userService, ContestantService contestantService, Converter converter, RaceService raceService, TeamService teamService, EngineCapacityService ecService) {
         this.eventDispatcher = eventDispatcher;
         this.userService = userService;
         this.contestantService = contestantService;
@@ -39,46 +40,6 @@ public class MotoContestImpl extends MotoContestGrpc.MotoContestImplBase {
         this.raceService = raceService;
         this.teamService = teamService;
         this.ecService = ecService;
-    }
-
-    @Override
-    public void sayHello(HelloRequest req, StreamObserver<HelloReply> responseObserver) {
-        HelloReply reply = HelloReply.newBuilder().setMessage("Hello " + req.getName()).build();
-        try {
-            Thread.sleep(2);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        responseObserver.onNext(reply);
-        responseObserver.onCompleted();
-        eventDispatcher.dispatch(
-                Event.newBuilder()
-                        .setName(Event.Name.HELLO)
-                        .build()
-        );
-    }
-
-    @Override
-    public void sayHelloAgain(HelloRequest req, StreamObserver<HelloReply> responseObserver) {
-        HelloReply reply = HelloReply.newBuilder().setMessage("Hello again " + req.getName()).build();
-        responseObserver.onNext(reply);
-        responseObserver.onCompleted();
-        eventDispatcher.dispatch(
-                Event.newBuilder()
-                        .setName(Event.Name.HELLO_AGAIN)
-                        .build()
-        );
-    }
-
-    @Override
-    public void subscribe(SubscribeRequest request, StreamObserver<Event> responseObserver) {
-        logger.info(request.toString());
-        Set<Event.Name> requestSet = new HashSet<>(request.getEventNameList());
-        logger.info("Received events :");
-        requestSet.forEach(name -> logger.info(name.toString()));
-        requestSet.forEach(
-                name -> eventDispatcher.addListener(name, responseObserver)
-        );
     }
 
     @Override
@@ -204,7 +165,7 @@ public class MotoContestImpl extends MotoContestGrpc.MotoContestImplBase {
         responseObserver.onNext(replyBuilder.build());
         responseObserver.onCompleted();
         if (doDispatch) {
-            eventDispatcher.dispatch(Event.Name.TEAM_ADDED);
+            eventDispatcher.dispatch(Event.TeamAdded);
         }
     }
 
@@ -237,7 +198,7 @@ public class MotoContestImpl extends MotoContestGrpc.MotoContestImplBase {
         responseObserver.onNext(replyBuilder.build());
         responseObserver.onCompleted();
         if (doDispatch) {
-            eventDispatcher.dispatch(Event.Name.CONTESTANT_REGISTERED);
+            eventDispatcher.dispatch(Event.ContestantRegistered);
         }
     }
 
